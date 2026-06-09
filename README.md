@@ -37,3 +37,4 @@ Coming soon!
 
 - Danim Kim (Tina) [GitHub](https://github.com/danimkim/) / [LinkedIn](https://www.linkedin.com/in/danimtinakim/)
 - William East [GitHub](https://github.com/wjbetech) / [LinkedIn](https://www.linkedin.com/in/wjbetech/)
+- Derek Barus [GitHub](https://github.com/barusdrk) / [LinkedIn](https://www.linkedin.com/in/derek-barus-5896b3233/)
