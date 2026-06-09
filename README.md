@@ -19,10 +19,6 @@ So far, we have come up with the following stack for implementation:
 
 ...more to come!
 
-## How to Run the Project
-
-Coming soon!
-
 ## 👥 Our Team
 
 #### 🚀 Project Manager
@@ -37,3 +33,10 @@ Coming soon!
 
 - Danim Kim (Tina) [GitHub](https://github.com/danimkim/) / [LinkedIn](https://www.linkedin.com/in/danimtinakim/)
 - William East [GitHub](https://github.com/wjbetech) / [LinkedIn](https://www.linkedin.com/in/wjbetech/)
+
+<br>
+<br>
+
+## How to Run the Project
+
+Coming soon!
