@@ -19,10 +19,6 @@ So far, we have come up with the following stack for implementation:
 
 ...more to come!
 
-## How to Run the Project
-
-Coming soon!
-
 ## 👥 Our Team
 
 #### 🚀 Project Manager
