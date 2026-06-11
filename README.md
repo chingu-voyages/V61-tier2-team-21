@@ -21,7 +21,7 @@ So far, we have come up with the following stack for implementation:
 
 ## 👥 Our Team
 
-#### 🚀 Project Manager
+#### 🚀 Product Owner
 
 - Ademola Kujore: [GitHub](https://github.com/Dhemmyhardy) / [LinkedIn](https://linkedin.com/in/tundeademolakujore)
 
