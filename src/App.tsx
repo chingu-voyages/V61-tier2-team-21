@@ -1,7 +1,13 @@
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Landing from "./components/Landing";
+
 function App() {
   return (
     <>
-      <h1 className="text-2xl">Voyage #61 - Team #21</h1>
+      <Header />
+      <Landing />
+      <Footer />
     </>
   );
 }
