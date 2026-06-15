@@ -3,7 +3,7 @@ type HeaderProps = {
 };
 
 export default function Header({
-  title = "Wordle",
+  title = "Wordsy",
 }: HeaderProps) {
   return (
     <header className="header">
