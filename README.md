@@ -25,6 +25,10 @@ So far, we have come up with the following stack for implementation:
 
 - Ademola Kujore: [GitHub](https://github.com/Dhemmyhardy) / [LinkedIn](https://linkedin.com/in/tundeademolakujore)
 
+#### Scrum Master
+
+- Tibam Gisele: [GitHub](https://github.com/Gisele-1) / [LinkedIn](https://www.linkedin.com/in/tibam-gisele-nsang-684781129/)
+
 #### 📚 UI/UX Designer
 
 - Tu Huynh: [GitHub](https://github.com/worktuhuynh1995-dot) / [LinkedIn](https://www.linkedin.com/in/tu-huynh-563b95257/)
