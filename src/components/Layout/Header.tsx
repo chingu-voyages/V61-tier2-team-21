@@ -1,6 +1,6 @@
 import { Puzzle, ChartColumnBig, CogOne, InfoOctagon } from "@mynaui/icons-react";
 
-export default function SimpleWithSocialLinks() {
+export default function Header() {
   return (
     <header className="header w-full border-b bg-background">
       <div className="mx-auto flex max-w-7xl items-center justify-between p-4">
