@@ -8,9 +8,10 @@ export default function KeyboardKey({
       type="button"
       className={`
         h-14
-        rounded-md
-        font-bold
-        uppercase
+        rounded-lg
+        font-semibold
+        text-sm
+        sm:text-base
         select-none
         w-10 sm:w-12
       `}
