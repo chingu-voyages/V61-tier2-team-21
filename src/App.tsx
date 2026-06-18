@@ -1,16 +1,11 @@
-import Footer from "./components/Footer";
-import Game from "./components/GameBoard/Game";
-import Header from "./components/Header";
-import Landing from "./components/Landing";
+import Layout from "./components/Layout/index";
+import Welcome from "./components/Welcome";
 
 function App() {
   return (
-    <>
-      <Header />
-      <Landing />
-      <Footer />
-      <Game />
-    </>
+    <Layout>
+      <Welcome />
+    </Layout>
   );
 }
 
