@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Board from "./Board";
-import type { BoardTile } from "../../types/board";
+import type { BoardTile } from "../../types/board/board";
 
 // hard coding the rows for now, make dynamic later!
 const GAME_BOARD_ROWS = 6;

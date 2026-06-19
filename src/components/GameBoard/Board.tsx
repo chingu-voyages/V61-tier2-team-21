@@ -1,6 +1,6 @@
 import React from "react";
 import Tile from "./Tile";
-import type { BoardProps, BoardTile } from "../../types/board";
+import type { BoardProps, BoardTile } from "../../types/board/board";
 
 const Row = React.memo(({ tiles }: { tiles: BoardTile[] }) => {
   return (
