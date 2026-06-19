@@ -1,5 +1,5 @@
 import Layout from "./components/Layout/index";
-import Welcome from "./components/Welcome";
+import Welcome from "./components/LandingSection";
 
 function App() {
   return (
