@@ -2,22 +2,31 @@ import { useState } from "react";
 import Board from "./Board";
 import type { BoardTile } from "../../types/board";
 
-// hard coding the rows for now, make dynamic later!
-const GAME_BOARD_ROWS = 6;
-const GAME_ROW_LETTERS = 5;
+interface GameProps {
+  rows?: number;
+  wordLength?: number;
+}
 
-const createEmptyBoard = (): BoardTile[][] => {
-  return Array.from({ length: GAME_BOARD_ROWS }, () =>
-    Array.from({ length: GAME_ROW_LETTERS }, () => ({
+const createEmptyBoard = (
+  rows: number,
+  wordLength: number,
+): BoardTile[][] => {
+  return Array.from({ length: rows }, () =>
+    Array.from({ length: wordLength }, () => ({
       letter: null,
-      state: "empty" as const
-    }))
+      state: "empty" as const,
+    })),
   );
 };
 
-export default function Game() {
+export default function Game({
+  rows = 6,
+  wordLength = 5,
+}: GameProps) {
   // need to build setBoard later!
-  const [board] = useState<BoardTile[][]>(createEmptyBoard);
+  const [board] = useState<BoardTile[][]>(() =>
+    createEmptyBoard(rows, wordLength),
+  );
 
   return (
     <div>
