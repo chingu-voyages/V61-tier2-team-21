@@ -2,9 +2,11 @@ import { Puzzle, ChartColumnBig, CogOne, InfoOctagon } from "@mynaui/icons-react
 
 export default function Header() {
   return (
-    <header className="header w-full border-b bg-background">
+    <nav className="header w-full border-b bg-background">
       <div className="mx-auto flex max-w-7xl items-center justify-between p-4">
-        <h1 className="text-2xl font-extrabold font-title">Questle</h1>
+        <h1 className="text-2xl font-extrabold font-title">
+          <a href="#">Questle</a>
+        </h1>
         <div className="flex items-center gap-2 text-blue-600 md:gap-3">
           <a href="#" target="_blank" rel="noreferrer noopener">
             <Puzzle className="size-7 text-gray-600 dark:text-white" />
@@ -20,6 +22,6 @@ export default function Header() {
           </a>
         </div>
       </div>
-    </header>
+    </nav>
   );
 }

@@ -1,4 +1,4 @@
-import type { TileProps, TileState } from "../../types/tile";
+import type { TileProps, TileState } from "../../types/board/tile";
 
 // A record is a union of types
 // We need both the TileState defined above, and the string of tailwind classes

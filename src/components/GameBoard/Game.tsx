@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Board from "./Board";
-import type { BoardTile } from "../../types/board";
+import type { BoardTile } from "../../types/board/board";
 
 interface GameProps {
   rows?: number;
