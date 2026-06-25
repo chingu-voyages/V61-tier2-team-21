@@ -8,10 +8,13 @@ export default function Playing() {
   return (
     <section className="flex flex-col items-center gap-y-2">
       <Game />
-      {/* keyboard will go here! */}
-      <p className="text-red-300 py-4" onClick={finishGame}>
-        Keyboard element to go here!
-      </p>
+
+      <button
+        className="py-4 text-red-300"
+        onClick={finishGame}
+      >
+        End Game
+      </button>
     </section>
   );
 }
