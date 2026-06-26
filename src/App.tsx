@@ -6,7 +6,7 @@ import Playing from "./pages/Playing";
 import Finished from "./pages/Finished";
 
 function App() {
-  const phase = useGameStore((set) => set.phase); // eventually refactor these out
+  const phase = useGameStore((s) => s.phase); // eventually refactor these out
 
   return (
     <Layout>
