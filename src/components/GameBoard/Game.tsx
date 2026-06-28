@@ -1,33 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import Board from "./Board";
-import Keyboard from "../Keyboard/Keyboard";
+import Board from './Board';
+import Keyboard from '../Keyboard';
 
-import type { BoardTile } from "../../types/board/board";
+import type { BoardTile } from '../../types/board/board';
 
-import wordles from "../../data/wordles.json";
-import validGuesses from "../../lib/validGuesses";
+import wordles from '../../data/wordles.json';
+import validGuesses from '../../lib/validGuesses';
 
 interface GameProps {
   rows?: number;
   wordLength?: number;
 }
 
-const createEmptyBoard = (
-  rows: number,
-  wordLength: number,
-): BoardTile[][] =>
+const createEmptyBoard = (rows: number, wordLength: number): BoardTile[][] =>
   Array.from({ length: rows }, () =>
     Array.from({ length: wordLength }, () => ({
       letter: null,
-      state: "empty" as const,
+      state: 'empty' as const,
     })),
   );
 
-export default function Game({
-  rows = 6,
-  wordLength = 5,
-}: GameProps) {
+export default function Game({ rows = 6, wordLength = 5 }: GameProps) {
   const [board, setBoard] = useState<BoardTile[][]>(() =>
     createEmptyBoard(rows, wordLength),
   );
@@ -36,8 +30,8 @@ export default function Game({
   const [currentCol, setCurrentCol] = useState(0);
   const [gameOver, setGameOver] = useState(false);
 
-  const [answer] = useState(
-    () => wordles[Math.floor(Math.random() * wordles.length)].toUpperCase(),
+  const [answer] = useState(() =>
+    wordles[Math.floor(Math.random() * wordles.length)].toUpperCase(),
   );
 
   const handleLetter = (letter: string) => {
@@ -48,7 +42,7 @@ export default function Game({
 
       next[currentRow][currentCol] = {
         letter,
-        state: "filled",
+        state: 'filled',
       };
 
       return next;
@@ -65,7 +59,7 @@ export default function Game({
 
       next[currentRow][currentCol - 1] = {
         letter: null,
-        state: "empty",
+        state: 'empty',
       };
 
       return next;
@@ -81,11 +75,11 @@ export default function Game({
 
     const guess = board[currentRow]
       .map((tile) => tile.letter)
-      .join("")
+      .join('')
       .toUpperCase();
 
     if (!validGuesses.includes(guess.toLowerCase())) {
-      alert("Not in word list");
+      alert('Not in word list');
       return;
     }
 
@@ -96,11 +90,11 @@ export default function Game({
         const letter = guess[i];
 
         if (letter === answer[i]) {
-          next[currentRow][i].state = "correct";
+          next[currentRow][i].state = 'correct';
         } else if (answer.includes(letter)) {
-          next[currentRow][i].state = "present";
+          next[currentRow][i].state = 'present';
         } else {
-          next[currentRow][i].state = "incorrect";
+          next[currentRow][i].state = 'incorrect';
         }
       }
 
@@ -109,7 +103,7 @@ export default function Game({
 
     if (guess === answer) {
       setGameOver(true);
-      alert("You win!");
+      alert('You win!');
       return;
     }
 
@@ -125,29 +119,28 @@ export default function Game({
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Enter") {
+      if (event.key === 'Enter') {
         handleEnter();
-      } else if (event.key === "Backspace") {
+      } else if (event.key === 'Backspace') {
         handleBackspace();
       } else if (/^[a-zA-Z]$/.test(event.key)) {
         handleLetter(event.key.toUpperCase());
       }
     };
 
-    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener('keydown', onKeyDown);
 
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   });
 
   return (
-    <div className="flex flex-col items-center gap-6">
+    <>
       <Board board={board} />
-
       <Keyboard
         onLetter={handleLetter}
         onEnter={handleEnter}
         onBackspace={handleBackspace}
       />
-    </div>
+    </>
   );
 }
