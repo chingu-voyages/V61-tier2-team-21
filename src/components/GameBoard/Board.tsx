@@ -1,6 +1,6 @@
-import React from "react";
-import Tile from "./Tile";
-import type { BoardProps, BoardTile } from "../../types/board/board";
+import React from 'react';
+import Tile from './Tile';
+import type { BoardProps, BoardTile } from '../../types/board/board';
 
 const Row = React.memo(({ tiles }: { tiles: BoardTile[] }) => {
   return (
@@ -12,20 +12,20 @@ const Row = React.memo(({ tiles }: { tiles: BoardTile[] }) => {
   );
 });
 
-Row.displayName = "Row";
+Row.displayName = 'Row';
 
 const Board = React.memo(({ board }: BoardProps) => {
   return (
     <div className="flex flex-col gap-1">
       {board.map((row, i) => (
-        <div className="gap-y-1">
-          <Row key={i} tiles={row} />
+        <div key={i} className="gap-y-1">
+          <Row tiles={row} />
         </div>
       ))}
     </div>
   );
 });
 
-Board.displayName = "Board";
+Board.displayName = 'Board';
 
 export default Board;
