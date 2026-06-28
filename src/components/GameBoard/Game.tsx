@@ -5,6 +5,9 @@ import Keyboard from "../Keyboard/Keyboard";
 
 import type { BoardTile } from "../../types/board/board";
 
+import wordles from "../../data/wordles.json";
+import validGuesses from "../../lib/validGuesses";
+
 interface GameProps {
   rows?: number;
   wordLength?: number;
@@ -29,9 +32,13 @@ export default function Game({
     createEmptyBoard(rows, wordLength),
   );
 
-  const [currentRow] = useState(0);
+  const [currentRow, setCurrentRow] = useState(0);
   const [currentCol, setCurrentCol] = useState(0);
-  const [gameOver] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+
+  const [answer] = useState(
+    () => wordles[Math.floor(Math.random() * wordles.length)].toUpperCase(),
+  );
 
   const handleLetter = (letter: string) => {
     if (gameOver || currentCol >= wordLength) return;
@@ -68,7 +75,52 @@ export default function Game({
   };
 
   const handleEnter = () => {
-    console.log("Enter");
+    if (gameOver) return;
+
+    if (currentCol !== wordLength) return;
+
+    const guess = board[currentRow]
+      .map((tile) => tile.letter)
+      .join("")
+      .toUpperCase();
+
+    if (!validGuesses.includes(guess.toLowerCase())) {
+      alert("Not in word list");
+      return;
+    }
+
+    setBoard((prev) => {
+      const next = prev.map((row) => row.map((tile) => ({ ...tile })));
+
+      for (let i = 0; i < wordLength; i++) {
+        const letter = guess[i];
+
+        if (letter === answer[i]) {
+          next[currentRow][i].state = "correct";
+        } else if (answer.includes(letter)) {
+          next[currentRow][i].state = "present";
+        } else {
+          next[currentRow][i].state = "incorrect";
+        }
+      }
+
+      return next;
+    });
+
+    if (guess === answer) {
+      setGameOver(true);
+      alert("You win!");
+      return;
+    }
+
+    if (currentRow === rows - 1) {
+      setGameOver(true);
+      alert(`Game over! Answer: ${answer}`);
+      return;
+    }
+
+    setCurrentRow((r) => r + 1);
+    setCurrentCol(0);
   };
 
   useEffect(() => {
