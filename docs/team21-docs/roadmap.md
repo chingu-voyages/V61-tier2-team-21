@@ -39,32 +39,32 @@ For each step, you will see:
 
 Remove duplicates and dead code so the codebase is clean before building on top.
 
-- [ ] **Remove the duplicate keyboard layout**
-  - **Assignee**: []
+- [x] **Remove the duplicate keyboard layout**
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** We have two definitions of the keyboard layout (one in `constants.ts`, one in `keyboardLayout.ts`). Delete the one in `constants.ts` and keep `keyboardLayout.ts` as the only source.
   - **Why we need it:** Having two definitions causes confusion. If someone updates one but not the other, the game breaks.
   - **How to know it works:** Search the codebase for `KEYBOARD_ROWS` — it should only exist in `keyboardLayout.ts`.
   - **Files to change:** `src/data/constants.ts`, `src/components/Keyboard/keyboardLayout.ts`
   - **How long:** S (~15 min)
 
-- [ ] **Remove unused `KeyboardKey.tsx` file or make it work**
-  - **Assignee**: []
+- [x] **Remove unused `KeyboardKey.tsx` file or make it work**
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** The file `KeyboardKey.tsx` exists but nothing uses it. Either delete it, or update `Keyboard.tsx` to use it.
   - **Why we need it:** Dead code confuses developers. When someone opens the project, they think this file is important but it is not used.
   - **How to know it works:** No unused component files in the `GameBoard` or `Keyboard` folders.
   - **Files to change:** `src/components/Keyboard/KeyboardKey.tsx` and/or `Keyboard.tsx`
   - **How long:** S (~15 min)
 
-- [ ] **Fix Tile colors to use CSS settings instead of hardcoded colors**
-  - **Assignee**: []
+- [x] **Fix Tile colors to use CSS settings instead of hardcoded colors**
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** In `Tile.tsx`, replace `bg-green-500`, `bg-amber-400`, `bg-gray-500` with the CSS settings from `index.css` (`--game-correct`, `--game-present`, `--game-absent`). Build additional colors for empty slots in both light and dark themes.
   - **Why we need it:** The designer set specific colors in the CSS file. If we use hardcoded colors, changing the design later means editing many files instead of one.
   - **How to know it works:** Tiles show the correct green, yellow, and gray colors. Changing the color in `index.css` changes the tile colors automatically.
   - **Files to change:** `src/components/GameBoard/Tile.tsx`
   - **How long:** S (~15 min)
 
-- [ ] **Fix a React warning about missing keys**
-  - **Assignee**: []
+- [x] **Fix a React warning about missing keys**
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** In `Board.tsx`, add `key={i}` to the `<div>` inside the `.map()` loop.
   - **Why we need it:** React needs a unique ID for each item in a list. Without it, React shows a warning in the browser console and might not update the screen correctly.
   - **How to know it works:** Open the browser console — no warning messages about "keys".
@@ -77,7 +77,7 @@ We need a way to test our code automatically. Currently there are no tests.
 
 - [ ] **Install testing libraries**
   - **Assignee**: []
-  - **What to do:** Run `npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom`
+  - **What to do:** Run `pnpm add -D vitest @testing-library/react @testing-library/jest-dom jsdom`
   - **Why we need it:** We need tools to write and run tests. Tests check that our code works correctly and prevent bugs.
   - **How to know it works:** The packages appear in `package.json` under `devDependencies`.
   - **Files to change:** `package.json`
@@ -86,8 +86,8 @@ We need a way to test our code automatically. Currently there are no tests.
 - [ ] **Add a "test" command to package.json**
   - **Assignee**: []
   - **What to do:** Add `"test": "vitest"` to the `scripts` section in `package.json`.
-  - **Why we need it:** This lets us run tests with `npm run test`.
-  - **How to know it works:** Running `npm run test` does not give an error (even with no tests yet).
+  - **Why we need it:** This lets us run tests with `pnpm test`.
+  - **How to know it works:** Running `pnpm test` does not give an error (even with no tests yet).
   - **Files to change:** `package.json`
   - **How long:** S (~2 min)
 
@@ -95,7 +95,7 @@ We need a way to test our code automatically. Currently there are no tests.
   - **Assignee**: []
   - **What to do:** Add a `test` section to `vite.config.ts` with `jsdom` environment. Create `src/test/setup.ts` that imports `@testing-library/jest-dom`.
   - **Why we need it:** Vitest needs to know how to run tests. `jsdom` simulates a browser so we can test React components.
-  - **How to know it works:** `npm run test` starts the test runner without errors.
+  - **How to know it works:** `pnpm test` starts the test runner without errors.
   - **Files to change:** `vite.config.ts`, `src/test/setup.ts` (new)
   - **How long:** S (~15 min)
 
@@ -145,7 +145,7 @@ The store currently only knows about the screen (landing/playing/finished). We n
     - Mock the date to a fixed value and check the word
     - Mock a different date and check the word is different
   - **Why we need it:** We need to make sure the word changes every day but stays the same on the same day.
-  - **How to know it works:** All tests pass with `npm run test`.
+  - **How to know it works:** All tests pass with `pnpm test`.
   - **Files to change:** `src/lib/dailyWord.test.ts` (new)
   - **How long:** S (~20 min)
 
