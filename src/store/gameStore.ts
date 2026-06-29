@@ -15,7 +15,7 @@ export const useGameStore = create<GameStore>((set) => ({
     set((state) => ({
       config: {
         ...state.config,
-        wordLength: Math.min(WORD_LENGTH.MAX, Math.max(WORD_LENGTH.MIN, length))
-      }
-    }))
+        wordLength: Math.min(WORD_LENGTH.MAX, Math.max(WORD_LENGTH.MIN, length)),
+      },
+    })),
 }));

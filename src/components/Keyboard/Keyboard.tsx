@@ -6,21 +6,13 @@ interface KeyboardProps {
   onBackspace: () => void;
 }
 
-export default function Keyboard({
-  onLetter,
-  onEnter,
-  onBackspace,
-}: KeyboardProps) {
+export default function Keyboard({ onLetter, onEnter, onBackspace }: KeyboardProps) {
   return (
     <div className="flex flex-col gap-1">
       {KEYBOARD_LAYOUT.map((row) => (
-        <div
-          key={row.join("")}
-          className="flex justify-center gap-1"
-        >
+        <div key={row.join("")} className="flex justify-center gap-1">
           {row.map((key) => {
-            const isSpecial =
-              key === "Enter" || key === "Delete";
+            const isSpecial = key === "Enter" || key === "Delete";
 
             return (
               <button
@@ -42,11 +34,7 @@ export default function Keyboard({
                 className={`
                   flex items-center justify-center
                   rounded-md border
-                  ${
-                    isSpecial
-                      ? "h-12 min-w-25 px-4"
-                      : "h-12 w-12"
-                  }
+                  ${isSpecial ? "h-12 min-w-25 px-4" : "h-12 w-12"}
                 `}
               >
                 {key}

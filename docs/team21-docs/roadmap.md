@@ -75,14 +75,14 @@ Remove duplicates and dead code so the codebase is clean before building on top.
 
 We need a way to test our code automatically. Currently there are no tests.
 
-- [ ] **Migrate project to Vite+**
+- [x] **Migrate project to Vite+**
   - **Assignee:** [Will](https://github.com/wjbetech)
   - **What to do:** Run the commands [here](https://viteplus.dev/guide/migrate) to migrate vite to vite+.
   - **Why we need it:** Vite+ adds a number of automatic checks and tests and overall enhances the experience developing with vite.
   - **How to know it works:** You should be able to use `vp ...` commands to run vite+ functionality.
   - **Files to change:** `package.json`
   - **How long:** S (~5-10 min)
-- [ ] **Install testing libraries**
+- [x] **Install testing libraries**
   - **Assignee**: [Will](https://github.com/wjbetech)
   - **What to do:** Run `npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom`
   - **Why we need it:** We need tools to write and run tests. Tests check that our code works correctly and prevent bugs.
@@ -90,7 +90,7 @@ We need a way to test our code automatically. Currently there are no tests.
   - **Files to change:** `package.json`
   - **How long:** S (~10 min)
 
-- [ ] **Add a "test" command to package.json**
+- [x] **Add a "test" command to package.json**
   - **Assignee**: [Will](https://github.com/wjbetech)
   - **What to do:** Add `"test": "vitest"` to the `scripts` section in `package.json`.
   - **Why we need it:** This lets us run tests with `npm run test`.
@@ -98,7 +98,7 @@ We need a way to test our code automatically. Currently there are no tests.
   - **Files to change:** `package.json`
   - **How long:** S (~2 min)
 
-- [ ] **Set up vitest configuration**
+- [x] **Set up vitest configuration**
   - **Assignee**: [Will](https://github.com/wjbetech)
   - **What to do:** Add a `test` section to `vite.config.ts` with `jsdom` environment. Create `src/test/setup.ts` that imports `@testing-library/jest-dom`.
   - **Why we need it:** Vitest needs to know how to run tests. `jsdom` simulates a browser so we can test React components.

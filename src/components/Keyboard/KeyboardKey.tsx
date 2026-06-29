@@ -1,8 +1,4 @@
-export default function KeyboardKey({
-  label
-}: {
-  label: string
-}) {
+export default function KeyboardKey({ label }: { label: string }) {
   return (
     <button
       type="button"
