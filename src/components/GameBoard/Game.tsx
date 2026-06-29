@@ -90,21 +90,36 @@ export default function Game({
     }
 
     setBoard((prev) => {
-      const next = prev.map((row) => row.map((tile) => ({ ...tile })));
+  const next = prev.map((row) => row.map((tile) => ({ ...tile })));
 
-      for (let i = 0; i < wordLength; i++) {
-        const letter = guess[i];
+  const remaining = answer.split("");
+  const states: BoardTile["state"][] = Array(wordLength).fill("incorrect");
 
-        if (letter === answer[i]) {
-          next[currentRow][i].state = "correct";
-        } else if (answer.includes(letter)) {
-          next[currentRow][i].state = "present";
-        } else {
-          next[currentRow][i].state = "incorrect";
-        }
-      }
+  for (let i = 0; i < wordLength; i++) {
+    if (guess[i] === answer[i]) {
+      states[i] = "correct";
+      remaining[i] = "";
+    }
+  }
 
-      return next;
+  for (let i = 0; i < wordLength; i++) {
+    if (states[i] === "correct") continue;
+
+    const index = remaining.indexOf(guess[i]);
+
+    if (index !== -1) {
+      states[i] = "present";
+      remaining[index] = "";
+    } else {
+      states[i] = "incorrect";
+    }
+  }
+
+  for (let i = 0; i < wordLength; i++) {
+    next[currentRow][i].state = states[i];
+  }
+
+  return next;
     });
 
     if (guess === answer) {
