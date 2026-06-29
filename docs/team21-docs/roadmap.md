@@ -75,24 +75,24 @@ Remove duplicates and dead code so the codebase is clean before building on top.
 
 We need a way to test our code automatically. Currently there are no tests.
 
-- [ ] **Install testing libraries**
-  - **Assignee**: []
+- [x] **Install testing libraries**
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** Run `npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom`
   - **Why we need it:** We need tools to write and run tests. Tests check that our code works correctly and prevent bugs.
   - **How to know it works:** The packages appear in `package.json` under `devDependencies`.
   - **Files to change:** `package.json`
   - **How long:** S (~10 min)
 
-- [ ] **Add a "test" command to package.json**
-  - **Assignee**: []
+- [x] **Add a "test" command to package.json**
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** Add `"test": "vitest"` to the `scripts` section in `package.json`.
   - **Why we need it:** This lets us run tests with `npm run test`.
   - **How to know it works:** Running `npm run test` does not give an error (even with no tests yet).
   - **Files to change:** `package.json`
   - **How long:** S (~2 min)
 
-- [ ] **Set up vitest configuration**
-  - **Assignee**: []
+- [x] **Set up vitest configuration**
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** Add a `test` section to `vite.config.ts` with `jsdom` environment. Create `src/test/setup.ts` that imports `@testing-library/jest-dom`.
   - **Why we need it:** Vitest needs to know how to run tests. `jsdom` simulates a browser so we can test React components.
   - **How to know it works:** `npm run test` starts the test runner without errors.
