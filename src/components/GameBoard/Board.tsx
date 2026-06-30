@@ -1,6 +1,6 @@
-import React from "react";
-import Tile from "./Tile";
-import type { BoardProps, BoardTile } from "../../types/board/board";
+import React from 'react';
+import Tile from './Tile';
+import type { BoardProps, BoardTile } from '../../types/board/board';
 
 const Row = React.memo(({ tiles }: { tiles: BoardTile[] }) => {
   return (
@@ -12,7 +12,7 @@ const Row = React.memo(({ tiles }: { tiles: BoardTile[] }) => {
   );
 });
 
-Row.displayName = "Row";
+Row.displayName = 'Row';
 
 const Board = React.memo(({ board }: BoardProps) => {
   return (
@@ -26,6 +26,6 @@ const Board = React.memo(({ board }: BoardProps) => {
   );
 });
 
-Board.displayName = "Board";
+Board.displayName = 'Board';
 
 export default Board;

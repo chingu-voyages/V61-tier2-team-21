@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import Board from "./Board";
-import Keyboard from "../Keyboard/Keyboard";
+import Board from './Board';
+import Keyboard from '../Keyboard';
 
-import type { BoardTile } from "../../types/board/board";
+import type { BoardTile } from '../../types/board/board';
 
-import wordles from "../../data/wordles.json";
-import validGuesses from "../../lib/validGuesses";
+import wordles from '../../data/wordles.json';
+import validGuesses from '../../lib/validGuesses';
 
 interface GameProps {
   rows?: number;
@@ -17,12 +17,14 @@ const createEmptyBoard = (rows: number, wordLength: number): BoardTile[][] =>
   Array.from({ length: rows }, () =>
     Array.from({ length: wordLength }, () => ({
       letter: null,
-      state: "empty" as const,
+      state: 'empty' as const,
     })),
   );
 
 export default function Game({ rows = 6, wordLength = 5 }: GameProps) {
-  const [board, setBoard] = useState<BoardTile[][]>(() => createEmptyBoard(rows, wordLength));
+  const [board, setBoard] = useState<BoardTile[][]>(() =>
+    createEmptyBoard(rows, wordLength),
+  );
 
   const [currentRow, setCurrentRow] = useState(0);
   const [currentCol, setCurrentCol] = useState(0);
@@ -40,7 +42,7 @@ export default function Game({ rows = 6, wordLength = 5 }: GameProps) {
 
       next[currentRow][currentCol] = {
         letter,
-        state: "filled",
+        state: 'filled',
       };
 
       return next;
@@ -57,7 +59,7 @@ export default function Game({ rows = 6, wordLength = 5 }: GameProps) {
 
       next[currentRow][currentCol - 1] = {
         letter: null,
-        state: "empty",
+        state: 'empty',
       };
 
       return next;
@@ -73,50 +75,50 @@ export default function Game({ rows = 6, wordLength = 5 }: GameProps) {
 
     const guess = board[currentRow]
       .map((tile) => tile.letter)
-      .join("")
+      .join('')
       .toUpperCase();
 
     if (!validGuesses.includes(guess.toLowerCase())) {
-      alert("Not in word list");
+      alert('Not in word list');
       return;
     }
 
     setBoard((prev) => {
-  const next = prev.map((row) => row.map((tile) => ({ ...tile })));
+      const next = prev.map((row) => row.map((tile) => ({ ...tile })));
 
-  const remaining = answer.split("");
-  const states: BoardTile["state"][] = Array(wordLength).fill("incorrect");
+      const remaining = answer.split('');
+      const states: BoardTile['state'][] = Array(wordLength).fill('incorrect');
 
-  for (let i = 0; i < wordLength; i++) {
-    if (guess[i] === answer[i]) {
-      states[i] = "correct";
-      remaining[i] = "";
-    }
-  }
+      for (let i = 0; i < wordLength; i++) {
+        if (guess[i] === answer[i]) {
+          states[i] = 'correct';
+          remaining[i] = '';
+        }
+      }
 
-  for (let i = 0; i < wordLength; i++) {
-    if (states[i] === "correct") continue;
+      for (let i = 0; i < wordLength; i++) {
+        if (states[i] === 'correct') continue;
 
-    const index = remaining.indexOf(guess[i]);
+        const index = remaining.indexOf(guess[i]);
 
-    if (index !== -1) {
-      states[i] = "present";
-      remaining[index] = "";
-    } else {
-      states[i] = "incorrect";
-    }
-  }
+        if (index !== -1) {
+          states[i] = 'present';
+          remaining[index] = '';
+        } else {
+          states[i] = 'incorrect';
+        }
+      }
 
-  for (let i = 0; i < wordLength; i++) {
-    next[currentRow][i].state = states[i];
-  }
+      for (let i = 0; i < wordLength; i++) {
+        next[currentRow][i].state = states[i];
+      }
 
-  return next;
+      return next;
     });
 
     if (guess === answer) {
       setGameOver(true);
-      alert("You win!");
+      alert('You win!');
       return;
     }
 
@@ -132,25 +134,29 @@ export default function Game({ rows = 6, wordLength = 5 }: GameProps) {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Enter") {
+      if (event.key === 'Enter') {
         handleEnter();
-      } else if (event.key === "Backspace") {
+      } else if (event.key === 'Backspace') {
         handleBackspace();
       } else if (/^[a-zA-Z]$/.test(event.key)) {
         handleLetter(event.key.toUpperCase());
       }
     };
 
-    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener('keydown', onKeyDown);
 
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   });
 
   return (
-    <div className="flex flex-col items-center gap-6">
+    <>
       <Board board={board} />
 
-      <Keyboard onLetter={handleLetter} onEnter={handleEnter} onBackspace={handleBackspace} />
-    </div>
+      <Keyboard
+        onLetter={handleLetter}
+        onEnter={handleEnter}
+        onBackspace={handleBackspace}
+      />
+    </>
   );
 }
