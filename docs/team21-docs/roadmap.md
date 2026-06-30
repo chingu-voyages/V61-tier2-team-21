@@ -75,24 +75,31 @@ Remove duplicates and dead code so the codebase is clean before building on top.
 
 We need a way to test our code automatically. Currently there are no tests.
 
-- [ ] **Install testing libraries**
-  - **Assignee**: []
-  - **What to do:** Run `pnpm add -D vitest @testing-library/react @testing-library/jest-dom jsdom`
+- [x] **Migrate project to Vite+**
+  - **Assignee:** [Will](https://github.com/wjbetech), [Tina](https://github.com/danimkim)
+  - **What to do:** Run the commands [here](https://viteplus.dev/guide/migrate) to migrate vite to vite+.
+  - **Why we need it:** Vite+ adds a number of automatic checks and tests and overall enhances the experience developing with vite.
+  - **How to know it works:** You should be able to use `vp ...` commands to run vite+ functionality.
+  - **Files to change:** `package.json`
+  - **How long:** S (~5-10 min)
+- [x] **Install testing libraries**
+  - **Assignee**: [Will](https://github.com/wjbetech), [Tina](https://github.com/danimkim)
+  - **What to do:** Run `npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom`
   - **Why we need it:** We need tools to write and run tests. Tests check that our code works correctly and prevent bugs.
   - **How to know it works:** The packages appear in `package.json` under `devDependencies`.
   - **Files to change:** `package.json`
   - **How long:** S (~10 min)
 
-- [ ] **Add a "test" command to package.json**
-  - **Assignee**: []
+- [x] **Add a "test" command to package.json**
+  - **Assignee**: [Will](https://github.com/wjbetech), [Tina](https://github.com/danimkim)
   - **What to do:** Add `"test": "vitest"` to the `scripts` section in `package.json`.
   - **Why we need it:** This lets us run tests with `pnpm test`.
   - **How to know it works:** Running `pnpm test` does not give an error (even with no tests yet).
   - **Files to change:** `package.json`
   - **How long:** S (~2 min)
 
-- [ ] **Set up vitest configuration**
-  - **Assignee**: []
+- [x] **Set up vitest configuration**
+  - **Assignee**: [Will](https://github.com/wjbetech), [Tina](https://github.com/danimkim)
   - **What to do:** Add a `test` section to `vite.config.ts` with `jsdom` environment. Create `src/test/setup.ts` that imports `@testing-library/jest-dom`.
   - **Why we need it:** Vitest needs to know how to run tests. `jsdom` simulates a browser so we can test React components.
   - **How to know it works:** `pnpm test` starts the test runner without errors.
@@ -104,7 +111,7 @@ We need a way to test our code automatically. Currently there are no tests.
 The store currently only knows about the screen (landing/playing/finished). We need to add game data.
 
 - [ ] **Add game state fields to the store**
-  - **Assignee**: []
+  - **Assignee**: [Will](<(https://github.com/wjbetech)>)
   - **What to do:** Add these fields to the store and to the `GameStore` type in `gamePhases.ts`:
     - `answer: string` — the word the player needs to guess (empty string at start)
     - `board: BoardTile[][]` — the 6x5 grid of tiles (empty at start)
