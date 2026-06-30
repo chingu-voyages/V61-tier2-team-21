@@ -11,8 +11,19 @@ export const getRandomAnswer = (wordLength: number = 5, date: Date = new Date())
   if (matching.length === 0) return "";
 
   // get days in UTC date so the words are stable for 24hrs
-  const dateStr = date.toISOString().split("T")[0];
-  const startStr = START_DATE.toISOString().split("T")[0];
+  const padding = (n: number) => String(n).padStart(2, "0");
+
+  // build the current date string
+  const year = date.getFullYear();
+  const month = padding(date.getMonth() + 1);
+  const day = padding(date.getDate());
+  const dateStr = `${year}-${month}-${day}`;
+
+  // build the baseline date string
+  const startYear = START_DATE.getFullYear();
+  const startMonth = padding(START_DATE.getMonth() + 1);
+  const startDay = padding(START_DATE.getDate());
+  const startStr = `${startYear}-${startMonth}-${startDay}`;
 
   const daysSinceStart = Math.floor(
     (new Date(dateStr).getTime() - new Date(startStr).getTime()) / (1000 * 60 * 60 * 24),
