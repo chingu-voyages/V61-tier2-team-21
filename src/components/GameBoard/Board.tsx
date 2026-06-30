@@ -18,8 +18,8 @@ const Board = React.memo(({ board }: BoardProps) => {
   return (
     <div className="flex flex-col gap-1">
       {board.map((row, i) => (
-        <div className="gap-y-1">
-          <Row key={i} tiles={row} />
+        <div key={i} className="gap-y-1">
+          <Row tiles={row} />
         </div>
       ))}
     </div>

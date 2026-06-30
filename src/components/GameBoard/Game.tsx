@@ -13,10 +13,7 @@ interface GameProps {
   wordLength?: number;
 }
 
-const createEmptyBoard = (
-  rows: number,
-  wordLength: number,
-): BoardTile[][] =>
+const createEmptyBoard = (rows: number, wordLength: number): BoardTile[][] =>
   Array.from({ length: rows }, () =>
     Array.from({ length: wordLength }, () => ({
       letter: null,
@@ -24,20 +21,15 @@ const createEmptyBoard = (
     })),
   );
 
-export default function Game({
-  rows = 6,
-  wordLength = 5,
-}: GameProps) {
-  const [board, setBoard] = useState<BoardTile[][]>(() =>
-    createEmptyBoard(rows, wordLength),
-  );
+export default function Game({ rows = 6, wordLength = 5 }: GameProps) {
+  const [board, setBoard] = useState<BoardTile[][]>(() => createEmptyBoard(rows, wordLength));
 
   const [currentRow, setCurrentRow] = useState(0);
   const [currentCol, setCurrentCol] = useState(0);
   const [gameOver, setGameOver] = useState(false);
 
-  const [answer] = useState(
-    () => wordles[Math.floor(Math.random() * wordles.length)].toUpperCase(),
+  const [answer] = useState(() =>
+    wordles[Math.floor(Math.random() * wordles.length)].toUpperCase(),
   );
 
   const handleLetter = (letter: string) => {
@@ -158,11 +150,7 @@ export default function Game({
     <div className="flex flex-col items-center gap-6">
       <Board board={board} />
 
-      <Keyboard
-        onLetter={handleLetter}
-        onEnter={handleEnter}
-        onBackspace={handleBackspace}
-      />
+      <Keyboard onLetter={handleLetter} onEnter={handleEnter} onBackspace={handleBackspace} />
     </div>
   );
 }

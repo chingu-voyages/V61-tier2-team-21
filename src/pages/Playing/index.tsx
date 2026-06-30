@@ -9,10 +9,7 @@ export default function Playing() {
     <section className="flex flex-col items-center gap-y-2">
       <Game />
 
-      <button
-        className="py-4 text-red-300"
-        onClick={finishGame}
-      >
+      <button className="py-4 text-red-300" onClick={finishGame}>
         End Game
       </button>
     </section>
