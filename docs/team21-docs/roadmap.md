@@ -111,7 +111,7 @@ We need a way to test our code automatically. Currently there are no tests.
 The store currently only knows about the screen (landing/playing/finished). We need to add game data.
 
 - [ ] **Add game state fields to the store**
-  - **Assignee**: []
+  - **Assignee**: [Will](<(https://github.com/wjbetech)>)
   - **What to do:** Add these fields to the store and to the `GameStore` type in `gamePhases.ts`:
     - `answer: string` — the word the player needs to guess (empty string at start)
     - `board: BoardTile[][]` — the 6x5 grid of tiles (empty at start)
