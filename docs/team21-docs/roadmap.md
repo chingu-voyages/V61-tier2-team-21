@@ -93,8 +93,8 @@ We need a way to test our code automatically. Currently there are no tests.
 - [x] **Add a "test" command to package.json**
   - **Assignee**: [Will](https://github.com/wjbetech), [Tina](https://github.com/danimkim)
   - **What to do:** Add `"test": "vitest"` to the `scripts` section in `package.json`.
-  - **Why we need it:** This lets us run tests with `npm run test`.
-  - **How to know it works:** Running `npm run test` does not give an error (even with no tests yet).
+  - **Why we need it:** This lets us run tests with `pnpm test`.
+  - **How to know it works:** Running `pnpm test` does not give an error (even with no tests yet).
   - **Files to change:** `package.json`
   - **How long:** S (~2 min)
 
@@ -102,7 +102,7 @@ We need a way to test our code automatically. Currently there are no tests.
   - **Assignee**: [Will](https://github.com/wjbetech), [Tina](https://github.com/danimkim)
   - **What to do:** Add a `test` section to `vite.config.ts` with `jsdom` environment. Create `src/test/setup.ts` that imports `@testing-library/jest-dom`.
   - **Why we need it:** Vitest needs to know how to run tests. `jsdom` simulates a browser so we can test React components.
-  - **How to know it works:** `npm run test` starts the test runner without errors.
+  - **How to know it works:** `pnpm test` starts the test runner without errors.
   - **Files to change:** `vite.config.ts`, `src/test/setup.ts` (new)
   - **How long:** S (~15 min)
 
@@ -132,8 +132,8 @@ The store currently only knows about the screen (landing/playing/finished). We n
 
 ### User Story: The game picks a word for today
 
-- [ ] **Create a function that picks today's word**
-  - **Assignee**: []
+- [x] **Create a function that picks today's word**
+  - **Assignee**: [Will](https://github.com/wjbetech)
   - **What to do:** Create `getDailyWord()` in a new file `src/lib/dailyWord.ts`. It should:
     1. Get today's date (year, month, day)
     2. Convert it to a number (like days since Jan 1, 2000)
@@ -146,13 +146,13 @@ The store currently only knows about the screen (landing/playing/finished). We n
   - **Files to change:** `src/lib/dailyWord.ts` (new)
   - **How long:** S (~30 min)
 
-- [ ] **Write tests for `getDailyWord`**
-  - **Assignee**: []
+- [x] **Write tests for `getDailyWord`**
+  - **Assignee**: [Will](https://github.com/wjbetech)
   - **What to do:** Create `src/lib/dailyWord.test.ts`. Write tests that:
     - Mock the date to a fixed value and check the word
     - Mock a different date and check the word is different
   - **Why we need it:** We need to make sure the word changes every day but stays the same on the same day.
-  - **How to know it works:** All tests pass with `npm run test`.
+  - **How to know it works:** All tests pass with `pnpm test`.
   - **Files to change:** `src/lib/dailyWord.test.ts` (new)
   - **How long:** S (~20 min)
 

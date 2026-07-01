@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Board from "./Board";
-import Keyboard from "../Keyboard/Keyboard";
+import Keyboard from "../Keyboard";
 
 import type { BoardTile } from "../../types/board/board";
 
@@ -82,36 +82,36 @@ export default function Game({ rows = 6, wordLength = 5 }: GameProps) {
     }
 
     setBoard((prev) => {
-  const next = prev.map((row) => row.map((tile) => ({ ...tile })));
+      const next = prev.map((row) => row.map((tile) => ({ ...tile })));
 
-  const remaining = answer.split("");
-  const states: BoardTile["state"][] = Array(wordLength).fill("incorrect");
+      const remaining = answer.split("");
+      const states: BoardTile["state"][] = Array(wordLength).fill("incorrect");
 
-  for (let i = 0; i < wordLength; i++) {
-    if (guess[i] === answer[i]) {
-      states[i] = "correct";
-      remaining[i] = "";
-    }
-  }
+      for (let i = 0; i < wordLength; i++) {
+        if (guess[i] === answer[i]) {
+          states[i] = "correct";
+          remaining[i] = "";
+        }
+      }
 
-  for (let i = 0; i < wordLength; i++) {
-    if (states[i] === "correct") continue;
+      for (let i = 0; i < wordLength; i++) {
+        if (states[i] === "correct") continue;
 
-    const index = remaining.indexOf(guess[i]);
+        const index = remaining.indexOf(guess[i]);
 
-    if (index !== -1) {
-      states[i] = "present";
-      remaining[index] = "";
-    } else {
-      states[i] = "incorrect";
-    }
-  }
+        if (index !== -1) {
+          states[i] = "present";
+          remaining[index] = "";
+        } else {
+          states[i] = "incorrect";
+        }
+      }
 
-  for (let i = 0; i < wordLength; i++) {
-    next[currentRow][i].state = states[i];
-  }
+      for (let i = 0; i < wordLength; i++) {
+        next[currentRow][i].state = states[i];
+      }
 
-  return next;
+      return next;
     });
 
     if (guess === answer) {
@@ -147,10 +147,10 @@ export default function Game({ rows = 6, wordLength = 5 }: GameProps) {
   });
 
   return (
-    <div className="flex flex-col items-center gap-6">
+    <>
       <Board board={board} />
 
       <Keyboard onLetter={handleLetter} onEnter={handleEnter} onBackspace={handleBackspace} />
-    </div>
+    </>
   );
 }

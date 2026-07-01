@@ -66,4 +66,7 @@ body {
 
   /* typography */
   --font-title: var(--title);
+
+  /* breakpoint */
+  --breakpoint-xl: 90rem; /* 1440px */
 }

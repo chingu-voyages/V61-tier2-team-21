@@ -5,9 +5,9 @@ import type { TileProps, TileState } from "../../types/board/tile";
 const stateStyles: Record<TileState, string> = {
   empty: "bg-transparent text-black dark:text-white",
   filled: "bg-transparent text-black dark:text-white", // looks the same as empty, for now
-  correct: "bg-green-500 text-white",
-  present: "bg-amber-400 text-white",
-  incorrect: "bg-gray-500 text-white",
+  correct: "--game-correct text-white",
+  present: "--game-present text-white",
+  incorrect: "--game-absent text-white",
 };
 
 export default function Tile({ letter, state }: TileProps) {
@@ -19,5 +19,3 @@ export default function Tile({ letter, state }: TileProps) {
     </div>
   );
 }
-
-Tile.displayName = "Tile";
