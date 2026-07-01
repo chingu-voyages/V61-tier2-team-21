@@ -132,8 +132,8 @@ The store currently only knows about the screen (landing/playing/finished). We n
 
 ### User Story: The game picks a word for today
 
-- [ ] **Create a function that picks today's word**
-  - **Assignee**: []
+- [x] **Create a function that picks today's word**
+  - **Assignee**: [Will](https://github.com/wjbetech)
   - **What to do:** Create `getDailyWord()` in a new file `src/lib/dailyWord.ts`. It should:
     1. Get today's date (year, month, day)
     2. Convert it to a number (like days since Jan 1, 2000)
@@ -146,8 +146,8 @@ The store currently only knows about the screen (landing/playing/finished). We n
   - **Files to change:** `src/lib/dailyWord.ts` (new)
   - **How long:** S (~30 min)
 
-- [ ] **Write tests for `getDailyWord`**
-  - **Assignee**: []
+- [x] **Write tests for `getDailyWord`**
+  - **Assignee**: [Will](https://github.com/wjbetech)
   - **What to do:** Create `src/lib/dailyWord.test.ts`. Write tests that:
     - Mock the date to a fixed value and check the word
     - Mock a different date and check the word is different
