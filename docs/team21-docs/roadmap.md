@@ -159,7 +159,7 @@ The store currently only knows about the screen (landing/playing/finished). We n
 ### User Story: The player's guess is checked
 
 - [ ] **Create a function that checks if a word is a valid guess**
-  - **Assignee**: []
+  - **Assignee**: [Will](https://github.com/wjbetech)
   - **What to do:** Create `validateGuess(guess, wordLength)` in a new file `src/lib/gameLogic.ts`. It should return `true` or `false`:
     1. Check if the guess has exactly `wordLength` letters (default 5)
     2. Check if the guess is in our word list (`validGuesses`)
