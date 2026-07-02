@@ -1,4 +1,4 @@
-import validGuesses from "../data/validGuesses";
+import validGuesses from "./validGuesses";
 
 export function validateGuess(
   guess: string,
