@@ -14,15 +14,15 @@ export const getRandomAnswer = (wordLength: number = 5, date: Date = new Date())
   const padding = (n: number) => String(n).padStart(2, "0");
 
   // build the current date string
-  const year = date.getFullYear();
-  const month = padding(date.getMonth() + 1);
-  const day = padding(date.getDate());
+  const year = date.getUTCFullYear();
+  const month = padding(date.getUTCMonth() + 1);
+  const day = padding(date.getUTCDate());
   const dateStr = `${year}-${month}-${day}`;
 
   // build the baseline date string
-  const startYear = START_DATE.getFullYear();
-  const startMonth = padding(START_DATE.getMonth() + 1);
-  const startDay = padding(START_DATE.getDate());
+  const startYear = START_DATE.getUTCFullYear();
+  const startMonth = padding(START_DATE.getUTCMonth() + 1);
+  const startDay = padding(START_DATE.getUTCDate());
   const startStr = `${startYear}-${startMonth}-${startDay}`;
 
   const daysSinceStart = Math.floor(

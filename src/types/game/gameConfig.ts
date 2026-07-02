@@ -17,9 +17,13 @@ export interface GameStore {
   guessedLetters: Record<string, TileState>;
   answer: string;
   currentRow: number;
+  currentCol: number;
   gameResult: "win" | "lose" | null;
+  setWordLength: (length: number) => void;
+  addLetter: (letter: string) => void;
+  deleteLetter: () => void;
+  submitGuess: () => void;
   startGame: () => void;
   finishGame: () => void;
   resetGame: () => void;
-  setWordLength: (length: number) => void;
 }
