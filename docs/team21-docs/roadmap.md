@@ -374,7 +374,7 @@ The store currently only knows about the screen (landing/playing/finished). We n
 ### User Story: The player sees the game result
 
 - [ ] **Show the result on the Finished screen**
-  - **Assignee**: []
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** Read `gameResult` from the store in `Finished/index.tsx`. Show:
     - "You won!" if `gameResult === 'win'`
     - "You lost!" if `gameResult === 'lose'`
