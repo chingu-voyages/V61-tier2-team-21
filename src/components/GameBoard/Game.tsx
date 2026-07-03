@@ -25,7 +25,7 @@ export default function Game() {
     window.addEventListener("keydown", onKeyDown);
 
     return () => window.removeEventListener("keydown", onKeyDown);
-  });
+  }, [addLetter, deleteLetter, submitGuess]);
 
   return (
     <>
