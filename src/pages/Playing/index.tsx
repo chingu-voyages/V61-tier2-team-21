@@ -1,4 +1,4 @@
-import Game from '@/components/GameBoard/Game';
+import Game from "@/components/GameBoard/Game";
 
 export default function Playing() {
   return (
