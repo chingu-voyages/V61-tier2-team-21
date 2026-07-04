@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { validateGuess } from "./gameLogic";
+import { compareGuess, validateGuess } from "./gameLogic";
 
 describe("validateGuess", () => {
   it("returns true for a valid word", () => {
@@ -20,5 +20,47 @@ describe("validateGuess", () => {
 
   it("returns false for an empty string", () => {
     expect(validateGuess("")).toBe(false);
+  });
+});
+
+describe("compareGuess", () => {
+  it("returns all correct", () => {
+    expect(compareGuess("CRANE", "CRANE")).toEqual([
+      "correct",
+      "correct",
+      "correct",
+      "correct",
+      "correct",
+    ]);
+  });
+
+  it("returns the correct mix of states", () => {
+    expect(compareGuess("HELLO", "WORLD")).toEqual([
+      "incorrect",
+      "incorrect",
+      "present",
+      "correct",
+      "present",
+    ]);
+  });
+
+  it("returns all incorrect", () => {
+    expect(compareGuess("AAAAA", "BBBBB")).toEqual([
+      "incorrect",
+      "incorrect",
+      "incorrect",
+      "incorrect",
+      "incorrect",
+    ]);
+  });
+
+  it("handles duplicate letters correctly", () => {
+    expect(compareGuess("ALLOT", "APPLE")).toEqual([
+      "correct",
+      "present",
+      "incorrect",
+      "incorrect",
+      "incorrect",
+    ]);
   });
 });
