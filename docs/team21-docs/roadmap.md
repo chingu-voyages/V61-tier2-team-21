@@ -158,8 +158,8 @@ The store currently only knows about the screen (landing/playing/finished). We n
 
 ### User Story: The player's guess is checked
 
-- [ ] **Create a function that checks if a word is a valid guess**
-  - **Assignee**: []
+- [x] **Create a function that checks if a word is a valid guess**
+  - **Assignee**: [Will](https://github.com/wjbetech)
   - **What to do:** Create `validateGuess(guess, wordLength)` in a new file `src/lib/gameLogic.ts`. It should return `true` or `false`:
     1. Check if the guess has exactly `wordLength` letters (default 5)
     2. Check if the guess is in our word list (`validGuesses`)
@@ -374,7 +374,7 @@ The store currently only knows about the screen (landing/playing/finished). We n
 ### User Story: The player sees the game result
 
 - [ ] **Show the result on the Finished screen**
-  - **Assignee**: []
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** Read `gameResult` from the store in `Finished/index.tsx`. Show:
     - "You won!" if `gameResult === 'win'`
     - "You lost!" if `gameResult === 'lose'`
