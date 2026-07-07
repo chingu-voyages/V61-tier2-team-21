@@ -63,4 +63,34 @@ describe("compareGuess", () => {
       "incorrect",
     ]);
   });
+
+  it("handles duplicate letters (ALLEY vs LEVEL)", () => {
+  expect(compareGuess("ALLEY", "LEVEL")).toEqual([
+    "incorrect",
+    "present",
+    "incorrect",
+    "correct",
+    "incorrect",
+    ]);
+  });
+
+  it("handles identical words with duplicates", () => {
+  expect(compareGuess("EERIE", "EERIE")).toEqual([
+    "correct",
+    "correct",
+    "correct",
+    "correct",
+    "correct",
+    ]);
+  });
+
+  it("handles duplicate letters with partial matches", () => {
+  expect(compareGuess("EERIE", "REPLY")).toEqual([
+    "present",
+    "correct",
+    "incorrect",
+    "incorrect",
+    "incorrect",
+    ]);
+  });
 });
