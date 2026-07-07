@@ -78,7 +78,7 @@ body {
   }
 
   50% {
-    transform: rotateX(90deg);
+    transform: rotateX(70deg);
     background-color: transparent;
   }
 
