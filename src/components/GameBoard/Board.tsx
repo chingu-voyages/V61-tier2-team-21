@@ -4,9 +4,9 @@ import type { BoardProps, BoardTile } from "../../types/board/board";
 
 const Row = React.memo(({ tiles }: { tiles: BoardTile[] }) => {
   return (
-    <div className="flex flex-row gap-1">
-      {tiles.map((tile, i) => (
-        <Tile key={i} letter={tile.letter} state={tile.state} />
+    <div className="flex flex-row gap-1 perspective-[1000px]">
+      {tiles.map((tile, idx) => (
+        <Tile key={idx} letter={tile.letter} state={tile.state} index={idx} />
       ))}
     </div>
   );

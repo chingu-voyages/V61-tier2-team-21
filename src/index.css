@@ -70,3 +70,24 @@ body {
   /* breakpoint */
   --breakpoint-xl: 90rem; /* 1440px */
 }
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0deg);
+    background-color: transparent;
+  }
+
+  50% {
+    transform: rotateX(90deg);
+    background-color: transparent;
+  }
+
+  100% {
+    transform: rotateX(0deg);
+    background-color: var(--flip-color);
+  }
+}
+
+.animate-flip {
+  animation: flip 500ms ease forwards;
+}

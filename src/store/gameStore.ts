@@ -20,7 +20,7 @@ export const useGameStore = create<GameStore>((set) => ({
   resetGame: () =>
     set((state) => ({
       phase: "landing",
-      answer: getRandomAnswer(state.config.wordLength),
+      answer: getRandomAnswer(state.config.wordLength).toUpperCase(),
       board: createEmptyBoard(state.config.wordLength, state.config.maxGuesses),
       currentRow: 0,
       currentCol: 0,
@@ -31,7 +31,7 @@ export const useGameStore = create<GameStore>((set) => ({
       const wordLength = Math.min(WORD_LENGTH.MAX, Math.max(WORD_LENGTH.MIN, length));
       return {
         config: { ...state.config, wordLength },
-        answer: getRandomAnswer(wordLength),
+        answer: getRandomAnswer(wordLength).toUpperCase(),
         board: createEmptyBoard(wordLength, state.config.maxGuesses),
         currentRow: 0,
         currentCol: 0,
@@ -111,7 +111,7 @@ export const useGameStore = create<GameStore>((set) => ({
 
       return { board, currentRow: state.currentRow + 1, currentCol: 0 };
     }),
-  answer: getRandomAnswer(DEFAULT_GAME_CONFIG.wordLength),
+  answer: getRandomAnswer(DEFAULT_GAME_CONFIG.wordLength).toUpperCase(),
   board: createEmptyBoard(DEFAULT_GAME_CONFIG.wordLength, DEFAULT_GAME_CONFIG.maxGuesses),
   currentRow: 0,
   currentCol: 0,
