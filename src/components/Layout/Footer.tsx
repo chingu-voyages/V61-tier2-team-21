@@ -6,7 +6,11 @@ export default function Footer() {
       <ul className="flex justify-center">
         <li className="border-r px-2">&copy; {today} Questle</li>
         <li>
-          <a href="https://github.com/chingu-voyages/V61-tier2-team-21" target="_blank" className="border-r px-2">
+          <a
+            href="https://github.com/chingu-voyages/V61-tier2-team-21"
+            target="_blank"
+            className="border-r px-2"
+          >
             GitHub
           </a>
         </li>
@@ -17,7 +21,9 @@ export default function Footer() {
           </a>
         </li>
       </ul>
-      <div className="mt-1 text-[12px]">Built with ❤️ for puzzle lovers using React, TypeScript & Vite</div>
+      <div className="mt-1 text-[12px]">
+        Built with ❤️ for puzzle lovers using React, TypeScript & Vite
+      </div>
     </footer>
   );
 }
