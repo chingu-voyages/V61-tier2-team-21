@@ -187,8 +187,8 @@ The store currently only knows about the screen (landing/playing/finished). We n
   - **Files to change:** `src/lib/gameLogic.ts`, `src/lib/gameLogic.test.ts`
   - **How long:** M (~1 hour)
 
-- [ ] **Make sure duplicate letters work correctly**
-  - **Assignee**: []
+- [x] **Make sure duplicate letters work correctly**
+  - **Assignee**: [Will](https://github.com/wjbetech)
   - **What to do:** Update `compareGuess` to handle words with repeated letters. The rule is: each letter in the answer can only be matched once.
   - **Why we need it:** Imagine the answer is "LEVEL" and the player guesses "ALLEY":
     - Position 0: "A" is not in "LEVEL" → gray
@@ -204,8 +204,8 @@ The store currently only knows about the screen (landing/playing/finished). We n
   - **Do this first:** The basic `compareGuess` function must exist
   - **How long:** M (~45 min)
 
-- [] **Create a function that builds the keyboard colors**
-  - **Assignee**: []
+- [ ] **Create a function that builds the keyboard colors**
+  - **Assignee**: [Will](https://github.com/wjbetech)
   - **What to do:** Create `updateGuessedLetters(oldGuesses, newGuess, newStates)` in `src/lib/gameLogic.ts`. It updates the keyboard letter colors after each guess.
   - **Why we need it:** The keyboard shows which letters the player has used. A letter should keep its best color:
     - If a letter was yellow, and becomes green in a later guess → it shows green
