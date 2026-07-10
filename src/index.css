@@ -23,6 +23,7 @@
   --game-present: #fcc800;
   --game-absent: #525252;
   --accent: #432dd7;
+  --accent-secondary: #a3b3ff;
   --warning: #fb2c36;
 
   --sans: "Inter", Roboto, sans-serif;
@@ -62,6 +63,7 @@ body {
   --color-game-present: var(--game-present);
   --color-game-absent: var(--game-absent);
   --color-accent: var(--accent);
+  --color-accent-secondary: var(--accent-secondary);
   --color-warning: var(--warning);
 
   /* typography */
