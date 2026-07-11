@@ -11,6 +11,7 @@ import validGuesses from "@/lib/validGuesses";
 
 // types
 import type { GameStore } from "../types/game/gameConfig";
+import { toast } from "sonner";
 
 export const useGameStore = create<GameStore>((set) => ({
   config: DEFAULT_GAME_CONFIG,
@@ -67,7 +68,7 @@ export const useGameStore = create<GameStore>((set) => ({
         .toUpperCase();
 
       if (!validGuesses.includes(guess.toLowerCase())) {
-        alert("Not in word list");
+        toast("Invalid");
         return state;
       }
 
@@ -100,13 +101,13 @@ export const useGameStore = create<GameStore>((set) => ({
       }
 
       if (guess === state.answer) {
-        alert("You win!");
-        return { board, gameResult: "win", phase: "gameFinished" as const };
+        toast("You Won!");
+        return { board, gameResult: "win" as const };
       }
 
       if (state.currentRow === maxGuesses - 1) {
-        alert(`Game over! Answer: ${state.answer}`);
-        return { board, gameResult: "lose", phase: "gameFinished" as const };
+        toast(state.answer);
+        return { board, gameResult: "lose" as const };
       }
 
       return { board, currentRow: state.currentRow + 1, currentCol: 0 };
