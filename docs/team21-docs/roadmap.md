@@ -373,30 +373,30 @@ The store currently only knows about the screen (landing/playing/finished). We n
 
 ### User Story: The player sees the game result
 
-- [ ] **Show the result on the Finished screen**
+- [x] **Show the result on the Finished screen**
   - **Assignee**: [Tina](https://github.com/danimkim)
-  - **What to do:** Read `gameResult` from the store in `Finished/index.tsx`. Show:
+  - **What to do:** Read `gameResult` from the store in `src/components/GameResultsModal/index.tsx` and render in `Playing/index.tsx`. Show:
     - "You won!" if `gameResult === 'win'`
     - "You lost!" if `gameResult === 'lose'`
   - **Why we need it:** The player needs to know if they won or lost.
   - **How to know it works:** Win the game → "You won!" appears. Lose the game → "You lost!" appears.
-  - **Files to change:** `src/pages/Finished/index.tsx`
+  - **Files to change:** `src/components/GameResultsModal/index.tsx`, `src/pages/Playing/index.tsx`
   - **How long:** S (~15 min)
 
-- [ ] **Show the answer on the Finished screen**
-  - **Assignee**: []
+- [x] **Show the answer on the Finished screen**
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** Read `answer` from the store. Show it on the Finished screen (for both win and lose).
   - **Why we need it:** If the player loses, they want to know what the word was. If they win, it is nice to see the word again.
   - **How to know it works:** Finish a game → the word is shown on the screen.
-  - **Files to change:** `src/pages/Finished/index.tsx`
+  - **Files to change:** `src/components/ui/toast.tsx`, `src/store/gameStore.ts`
   - **How long:** S (~5 min)
 
-- [ ] **Show how many guesses it took on win**
-  - **Assignee**: []
+- [x] **Show how many guesses it took on win**
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** Read `currentRow` from the store. On win, show "You guessed it in X tries" where X is `currentRow + 1` (because currentRow starts at 0).
   - **Why we need it:** Players want to know how good they were.
   - **How to know it works:** Win in 3 guesses → "You guessed it in 3 tries" appears.
-  - **Files to change:** `src/pages/Finished/index.tsx`
+  - **Files to change:** `src/components/ui/toast.tsx`, `src/store/gameStore.ts`
   - **How long:** S (~10 min)
 
 ### Epic: Make sure input is clean
