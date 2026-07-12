@@ -11,28 +11,38 @@ import {
 import type { GameResultsModalProps } from "@/types/game/gameResults";
 import GuessDistributionRow from "./GuessDistributionRow";
 import { MAX_GUESSES } from "@/data/constants";
+import { useGameStore } from "@/store/gameStore";
 
 export default function GameResultsModal({
   open,
-  answer,
-  attempts,
-  percentCorrect,
-  streak,
   guessDistribution,
   onShare,
   onPractice,
 }: GameResultsModalProps) {
+  const gameResult = useGameStore((s) => s.gameResult);
+  const answer = useGameStore((s) => s.answer);
+  const attempts = useGameStore((s) => s.currentRow) + 1; // row index starts with 0
+  const guessedLetters = useGameStore((s) => s.guessedLetters);
+
+  // HERE: This could be changed later depends on how percentCorrect is calculated (whether 'present' value count as correct or not)
+  const correctCount = Object.values(guessedLetters).filter((value) => value === "correct").length;
+  const totalCount = Object.keys(guessedLetters).length;
+  const percentCorrect = totalCount > 0 ? (correctCount / totalCount) * 100 : 0;
+  const streak = 3; // HERE: temp value. As local storage persistance is currently a stretch goal, this can be replaced later with the local storage value.
+
   return (
     <Dialog open={open} onOpenChange={(prev) => !prev}>
       <DialogContent
         showCloseButton={false}
-        className="gap-2.5 rounded-[25px] border-3 border-light-primary p-0 py-6 sm:p-10.75 bg-white w-full max-w-2/3"
+        className="gap-2.5 rounded-[25px] border-3 border-light-primary p-0 py-6 sm:p-10.75 bg-light-100 w-full max-w-4/5"
       >
-        <DialogDescription className="sr-only">Your Wordle results for today</DialogDescription>
+        <DialogDescription className="sr-only">Your Questle results for today</DialogDescription>
 
         <div className="relative flex w-full items-center justify-center">
-          <DialogTitle className="text-2xl font-medium sm:text-3xl">Correct!</DialogTitle>
-          <DialogClose className="absolute right-[10px] cursor-pointer border-none bg-transparent p-0">
+          <DialogTitle className="text-2xl font-medium sm:text-3xl">
+            {gameResult === "win" ? "Correct!" : "Try Again"}
+          </DialogTitle>
+          <DialogClose className="absolute right-2.5 cursor-pointer border-none bg-transparent p-0">
             <XCircle className="size-8 sm:size-11.25" />
             <span className="sr-only">Close</span>
           </DialogClose>
@@ -46,7 +56,7 @@ export default function GameResultsModal({
 
         <hr className="border-light border-2" />
 
-        <div className="flex flex-col items-center gap-[5px] px-[10px]">
+        <div className="flex flex-col items-center gap-1.25 px-2.5">
           <p className="text-xl font-medium sm:text-2xl">Guess Distribution</p>
           <div className="flex flex-col items-start">
             {guessDistribution.map((count, i) => (
