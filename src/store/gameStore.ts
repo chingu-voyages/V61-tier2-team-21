@@ -11,71 +11,141 @@ import validGuesses from "@/lib/validGuesses";
 
 // types
 import type { GameStore } from "../types/game/gameConfig";
+
 import { toast } from "sonner";
 
 export const useGameStore = create<GameStore>((set) => ({
   config: DEFAULT_GAME_CONFIG,
+
   phase: "landing",
+
   startGame: () => set({ phase: "gameInProgress" }),
+
   finishGame: () => set({ phase: "gameFinished" }),
+
   resetGame: () =>
     set((state) => ({
       phase: "landing",
       answer: getRandomAnswer(state.config.wordLength).toUpperCase(),
-      board: createEmptyBoard(state.config.wordLength, state.config.maxGuesses),
+      board: createEmptyBoard(
+        state.config.wordLength,
+        state.config.maxGuesses,
+      ),
       currentRow: 0,
       currentCol: 0,
       gameResult: null,
+      guessedLetters: {},
     })),
+
   setWordLength: (length: number) =>
     set((state) => {
-      const wordLength = Math.min(WORD_LENGTH.MAX, Math.max(WORD_LENGTH.MIN, length));
+      const wordLength = Math.min(
+        WORD_LENGTH.MAX,
+        Math.max(WORD_LENGTH.MIN, length),
+      );
+
       return {
-        config: { ...state.config, wordLength },
+        config: {
+          ...state.config,
+          wordLength,
+        },
+
         answer: getRandomAnswer(wordLength).toUpperCase(),
-        board: createEmptyBoard(wordLength, state.config.maxGuesses),
+
+        board: createEmptyBoard(
+          wordLength,
+          state.config.maxGuesses,
+        ),
+
         currentRow: 0,
         currentCol: 0,
         gameResult: null,
+        guessedLetters: {},
       };
     }),
+
   addLetter: (letter: string) =>
     set((state) => {
-      if (state.gameResult !== null || state.currentCol >= state.config.wordLength) return state;
+      if (
+        state.gameResult !== null ||
+        state.currentCol >= state.config.wordLength
+      ) {
+        return state;
+      }
 
-      const board = state.board.map((row) => row.map((tile) => ({ ...tile })));
-      board[state.currentRow][state.currentCol] = { letter, state: "filled" };
+      const board = state.board.map((row) =>
+        row.map((tile) => ({ ...tile })),
+      );
 
-      return { board, currentCol: state.currentCol + 1 };
+      board[state.currentRow][state.currentCol] = {
+        letter,
+        state: "filled",
+      };
+
+      return {
+        board,
+        currentCol: state.currentCol + 1,
+      };
     }),
+
   deleteLetter: () =>
     set((state) => {
-      if (state.gameResult !== null || state.currentCol === 0) return state;
+      if (
+        state.gameResult !== null ||
+        state.currentCol === 0
+      ) {
+        return state;
+      }
 
-      const board = state.board.map((row) => row.map((tile) => ({ ...tile })));
-      board[state.currentRow][state.currentCol - 1] = { letter: null, state: "empty" };
+      const board = state.board.map((row) =>
+        row.map((tile) => ({ ...tile })),
+      );
 
-      return { board, currentCol: state.currentCol - 1 };
+      board[state.currentRow][state.currentCol - 1] = {
+        letter: null,
+        state: "empty",
+      };
+
+      return {
+        board,
+        currentCol: state.currentCol - 1,
+      };
     }),
+
   submitGuess: () =>
     set((state) => {
-      if (state.gameResult !== null || state.currentCol !== state.config.wordLength) return state;
+      if (
+        state.gameResult !== null ||
+        state.currentCol !== state.config.wordLength
+      ) {
+        return state;
+      }
 
       const { wordLength, maxGuesses } = state.config;
+
       const guess = state.board[state.currentRow]
         .map((tile) => tile.letter)
         .join("")
         .toUpperCase();
 
       if (!validGuesses.includes(guess.toLowerCase())) {
-        toast("Invalid");
+        toast("Invalid word");
         return state;
       }
 
-      const board = state.board.map((row) => row.map((tile) => ({ ...tile })));
-      const remaining = state.answer.split("");
-      const states: ("correct" | "present" | "incorrect")[] = Array(wordLength).fill("incorrect");
+      const board = state.board.map((row) =>
+        row.map((tile) => ({ ...tile })),
+      );
 
+      const remaining = state.answer.split("");
+
+      const states: (
+        | "correct"
+        | "present"
+        | "incorrect"
+      )[] = Array(wordLength).fill("incorrect");
+
+      // Pass 1
       for (let i = 0; i < wordLength; i++) {
         if (guess[i] === state.answer[i]) {
           states[i] = "correct";
@@ -83,6 +153,7 @@ export const useGameStore = create<GameStore>((set) => ({
         }
       }
 
+      // Pass 2
       for (let i = 0; i < wordLength; i++) {
         if (states[i] === "correct") continue;
 
@@ -91,31 +162,75 @@ export const useGameStore = create<GameStore>((set) => ({
         if (index !== -1) {
           states[i] = "present";
           remaining[index] = "";
-        } else {
-          states[i] = "incorrect";
         }
       }
 
+      const guessedLetters = {
+        ...state.guessedLetters,
+      };
+
       for (let i = 0; i < wordLength; i++) {
         board[state.currentRow][i].state = states[i];
+
+        const letter = guess[i];
+
+        const current = guessedLetters[letter];
+
+        // Never downgrade a letter.
+        if (current === "correct") continue;
+
+        if (
+          current === "present" &&
+          states[i] === "incorrect"
+        ) {
+          continue;
+        }
+
+        guessedLetters[letter] = states[i];
       }
 
       if (guess === state.answer) {
         toast("You Won!");
-        return { board, gameResult: "win" as const };
+
+        return {
+          board,
+          guessedLetters,
+          gameResult: "win" as const,
+        };
       }
 
       if (state.currentRow === maxGuesses - 1) {
         toast(state.answer);
-        return { board, gameResult: "lose" as const };
+
+        return {
+          board,
+          guessedLetters,
+          gameResult: "lose" as const,
+        };
       }
 
-      return { board, currentRow: state.currentRow + 1, currentCol: 0 };
+      return {
+        board,
+        guessedLetters,
+        currentRow: state.currentRow + 1,
+        currentCol: 0,
+      };
     }),
-  answer: getRandomAnswer(DEFAULT_GAME_CONFIG.wordLength).toUpperCase(),
-  board: createEmptyBoard(DEFAULT_GAME_CONFIG.wordLength, DEFAULT_GAME_CONFIG.maxGuesses),
+
+  answer: getRandomAnswer(
+    DEFAULT_GAME_CONFIG.wordLength,
+  ).toUpperCase(),
+
+  board: createEmptyBoard(
+    DEFAULT_GAME_CONFIG.wordLength,
+    DEFAULT_GAME_CONFIG.maxGuesses,
+  ),
+
   currentRow: 0,
+
   currentCol: 0,
+
   gameResult: null,
+
   guessedLetters: {},
 }));
