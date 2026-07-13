@@ -262,8 +262,8 @@ The store currently only knows about the screen (landing/playing/finished). We n
 
 ### User Story: The player can type letters on the board
 
-- [ ] **Create an `addLetter(letter)` function in the store**
-  - **Assignee**: []
+- [x] **Create an `addLetter(letter)` function in the store**
+  - **Assignee**: [Derek Barus](https://github.com/barusdrk)
   - **What to do:** Add `addLetter` to `gameStore.ts`. It should:
     1. Check if `currentRow` is not full (less than 5 letters typed)
     2. If yes: add the letter to the current row, set that tile's state to `'filled'`
@@ -276,8 +276,8 @@ The store currently only knows about the screen (landing/playing/finished). We n
   - **Files to change:** `src/store/gameStore.ts`
   - **How long:** S (~20 min)
 
-- [ ] **Create a `removeLetter()` function in the store**
-  - **Assignee**: []
+- [x] **Create a `removeLetter()` function in the store**
+  - **Assignee**: [Derek Barus](https://github.com/barusdrk)
   - **What to do:** Add `removeLetter` to `gameStore.ts`. It should:
     1. Check if the current row has letters
     2. If yes: remove the last letter, set that tile's state back to `'empty'`
@@ -289,8 +289,8 @@ The store currently only knows about the screen (landing/playing/finished). We n
   - **Files to change:** `src/store/gameStore.ts`
   - **How long:** S (~15 min)
 
-- [ ] **Connect the on-screen keyboard to the store**
-  - **Assignee**: []
+- [x] **Connect the on-screen keyboard to the store**
+  - **Assignee**: [Derek Barus](https://github.com/barusdrk)
   - **What to do:** Update `Keyboard.tsx` and `Game.tsx` so that clicking a letter calls `addLetter`, clicking Backspace calls `removeLetter`. The keyboard should read `guessedLetters` from the store to show colors (Phase 4 adds the actual colors).
   - **Why we need it:** The player needs to use the on-screen keyboard to type.
   - **How to know it works:** Click letters on the screen → they appear on the board. Click Backspace → last letter disappears.
