@@ -193,11 +193,11 @@ The store currently only knows about the screen (landing/playing/finished). We n
   - **Why we need it:** Imagine the answer is "LEVEL" and the player guesses "ALLEY":
     - Position 0: "A" is not in "LEVEL" → gray
     - Position 1: "L" is in "LEVEL" but at position 0, not position 1 → yellow
-    - Position 2: "L" — there is only one "L" left in "LEVEL" (it was already used at position 1's match), so this "L" → gray
+    - Position 2: "L" — "LEVEL" has two "L"s, and only one has been used so far (by position 1's match), so there is still one "L" left to match → yellow
     - Position 3: "E" is in "LEVEL" but at positions 1 and 3, not position 3 → green (it IS at position 3)
     - Position 4: "Y" is not in "LEVEL" → gray
   - **How to know it works:** Write tests:
-    - "ALLEY" vs "LEVEL" → `[gray, yellow, gray, green, gray]`
+    - "ALLEY" vs "LEVEL" → `[gray, yellow, yellow, green, gray]`
     - "EERIE" vs "EERIE" → all green
     - "EERIE" vs "REPLY" → correct states
   - **Files to change:** `src/lib/gameLogic.ts`, `src/lib/gameLogic.test.ts`
