@@ -59,7 +59,11 @@ export const useGameStore = create<GameStore>((set) => ({
     }),
   submitGuess: () =>
     set((state) => {
-      if (state.gameResult !== null || state.currentCol !== state.config.wordLength) return state;
+      // When the user hasn't typed the full word length
+      if (state.currentCol !== state.config.wordLength) {
+        toast("Incomplete guess");
+        return state;
+      }
 
       const { wordLength, maxGuesses } = state.config;
       const guess = state.board[state.currentRow]
