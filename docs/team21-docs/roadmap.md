@@ -174,7 +174,7 @@ The store currently only knows about the screen (landing/playing/finished). We n
   - **How long:** S (~30 min)
 
 - [x] **Create a function that compares the guess to the answer**
-  - **Assignee**: [Will](https://github.com/wjbetech)
+  - **Assignee**: [Will](https://github.com/wjbetech), [Tina](https://github.com/danimkim)
   - **What to do:** Create `compareGuess(guess, answer)` in `src/lib/gameLogic.ts`. It returns an array of 5 tile states:
     - `'correct'` — right letter, right position (green tile)
     - `'present'` — right letter, wrong position (yellow tile)
@@ -205,7 +205,7 @@ The store currently only knows about the screen (landing/playing/finished). We n
   - **How long:** M (~45 min)
 
 - [ ] **Create a function that builds the keyboard colors**
-  - **Assignee**: [Will](https://github.com/wjbetech)
+  - **Assignee**: [Will](https://github.com/wjbetech), [Tina](https://github.com/danimkim)
   - **What to do:** Create `updateGuessedLetters(oldGuesses, newGuess, newStates)` in `src/lib/gameLogic.ts`. It updates the keyboard letter colors after each guess.
   - **Why we need it:** The keyboard shows which letters the player has used. A letter should keep its best color:
     - If a letter was yellow, and becomes green in a later guess → it shows green
