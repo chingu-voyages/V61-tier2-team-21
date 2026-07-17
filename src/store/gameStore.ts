@@ -68,6 +68,9 @@ export const useGameStore = create<GameStore>((set) => ({
     set((state) => {
       const { wordLength, maxGuesses } = state.config;
 
+      // Guard here (not just in the UI) so submitGuess stays safe even if called from a future entry point that doesn't check gameResult itself
+      if (state.gameResult !== null) return state;
+
       // When the user hasn't typed the full word length
       if (state.currentCol !== state.config.wordLength) {
         toast("Incomplete guess");
