@@ -12,10 +12,17 @@ import validGuesses from "@/lib/validGuesses";
 // types
 import type { GameStore } from "../types/game/gameConfig";
 import { toast } from "sonner";
+import { compareGuess } from "@/lib/gameLogic";
 
 export const useGameStore = create<GameStore>((set) => ({
   config: DEFAULT_GAME_CONFIG,
   phase: "landing",
+  answer: getRandomAnswer(DEFAULT_GAME_CONFIG.wordLength).toUpperCase(),
+  board: createEmptyBoard(DEFAULT_GAME_CONFIG.wordLength, DEFAULT_GAME_CONFIG.maxGuesses),
+  currentRow: 0,
+  currentCol: 0,
+  gameResult: null,
+  guessedLetters: {},
   startGame: () => set({ phase: "gameInProgress" }),
   finishGame: () => set({ phase: "gameFinished" }),
   resetGame: () =>
@@ -59,49 +66,30 @@ export const useGameStore = create<GameStore>((set) => ({
     }),
   submitGuess: () =>
     set((state) => {
+      const { wordLength, maxGuesses } = state.config;
+
       // When the user hasn't typed the full word length
       if (state.currentCol !== state.config.wordLength) {
         toast("Incomplete guess");
         return state;
       }
 
-      const { wordLength, maxGuesses } = state.config;
       const guess = state.board[state.currentRow]
         .map((tile) => tile.letter)
         .join("")
         .toUpperCase();
+      const board = state.board.map((row) => row.map((tile) => ({ ...tile })));
 
+      // When the words the user typed is not in the valid words list
       if (!validGuesses.includes(guess.toLowerCase())) {
         toast("Invalid");
         return state;
       }
 
-      const board = state.board.map((row) => row.map((tile) => ({ ...tile })));
-      const remaining = state.answer.split("");
-      const states: ("correct" | "present" | "incorrect")[] = Array(wordLength).fill("incorrect");
+      const tileStates = compareGuess(guess, state.answer);
 
       for (let i = 0; i < wordLength; i++) {
-        if (guess[i] === state.answer[i]) {
-          states[i] = "correct";
-          remaining[i] = "";
-        }
-      }
-
-      for (let i = 0; i < wordLength; i++) {
-        if (states[i] === "correct") continue;
-
-        const index = remaining.indexOf(guess[i]);
-
-        if (index !== -1) {
-          states[i] = "present";
-          remaining[index] = "";
-        } else {
-          states[i] = "incorrect";
-        }
-      }
-
-      for (let i = 0; i < wordLength; i++) {
-        board[state.currentRow][i].state = states[i];
+        board[state.currentRow][i].state = tileStates[i];
       }
 
       if (guess === state.answer) {
@@ -116,10 +104,4 @@ export const useGameStore = create<GameStore>((set) => ({
 
       return { board, currentRow: state.currentRow + 1, currentCol: 0 };
     }),
-  answer: getRandomAnswer(DEFAULT_GAME_CONFIG.wordLength).toUpperCase(),
-  board: createEmptyBoard(DEFAULT_GAME_CONFIG.wordLength, DEFAULT_GAME_CONFIG.maxGuesses),
-  currentRow: 0,
-  currentCol: 0,
-  gameResult: null,
-  guessedLetters: {},
 }));
