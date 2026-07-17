@@ -1,4 +1,5 @@
 // lib
+import { DEFAULT_GAME_CONFIG } from "@/data/constants";
 import validGuesses from "@/lib/validGuesses";
 
 // I thought I could pass WORD_LENGTH.DEFAULT in to args here
@@ -9,7 +10,7 @@ export function validateGuess(guess: string, wordLength: number): boolean {
 }
 
 export function compareGuess(guess: string, answer: string) {
-  const wordLength = 6;
+  const wordLength = DEFAULT_GAME_CONFIG.wordLength;
   const remaining = answer.split("");
   const states: ("correct" | "present" | "incorrect")[] = Array(wordLength).fill("incorrect");
 
