@@ -10,10 +10,11 @@ export default function Game() {
   const addLetter = useGameStore((s) => s.addLetter);
   const deleteLetter = useGameStore((s) => s.deleteLetter);
   const submitGuess = useGameStore((s) => s.submitGuess);
+  const gameResult = useGameStore((s) => s.gameResult);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Enter") {
+      if (event.key === "Enter" && gameResult === null) {
         submitGuess();
       } else if (event.key === "Backspace") {
         deleteLetter();
@@ -25,7 +26,7 @@ export default function Game() {
     window.addEventListener("keydown", onKeyDown);
 
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [addLetter, deleteLetter, submitGuess]);
+  }, [addLetter, deleteLetter, submitGuess, gameResult]);
 
   return (
     <>
