@@ -1,39 +1,27 @@
-import { XCircle } from "@mynaui/icons-react";
-import { Share } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import type { GameResultsModalProps } from "@/types/game/gameResults";
-import GuessDistributionRow from "./GuessDistributionRow";
-import { MAX_GUESSES } from "@/data/constants";
+import { TOAST_DURATION_MS } from "@/data/constants";
 import { useGameStore } from "@/store/gameStore";
+import { useEffect, useState } from "react";
 
-export default function GameResultsModal({
-  open,
-  guessDistribution,
-  onShare,
-  onPractice,
-}: GameResultsModalProps) {
+export default function GameResultsModal({ open }: GameResultsModalProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const gameResult = useGameStore((s) => s.gameResult);
   const answer = useGameStore((s) => s.answer);
   const attempts = useGameStore((s) => s.currentRow) + 1; // row index starts with 0
-  const guessedLetters = useGameStore((s) => s.guessedLetters);
 
-  // HERE: This could be changed later depends on how percentCorrect is calculated (whether 'present' value count as correct or not)
-  const correctCount = Object.values(guessedLetters).filter((value) => value === "correct").length;
-  const totalCount = Object.keys(guessedLetters).length;
-  const percentCorrect = totalCount > 0 ? (correctCount / totalCount) * 100 : 0;
-  const streak = 3; // HERE: temp value. As local storage persistance is currently a stretch goal, this can be replaced later with the local storage value.
+  useEffect(() => {
+    if (!open) return;
+
+    // Delay matches the toast duration so the modal opens after the win/lose toast dismisses
+    const timeoutId = setTimeout(() => setIsOpen(true), TOAST_DURATION_MS);
+    return () => clearTimeout(timeoutId);
+  }, [open]);
 
   return (
-    <Dialog open={open} onOpenChange={(prev) => !prev}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent
-        showCloseButton={false}
+        showCloseButton={true}
         className="gap-2.5 rounded-[25px] border-3 border-light-primary p-0 py-6 sm:p-10.75 bg-light-100 w-full max-w-4/5"
       >
         <DialogDescription className="sr-only">Your Questle results for today</DialogDescription>
@@ -42,21 +30,26 @@ export default function GameResultsModal({
           <DialogTitle className="text-2xl font-medium sm:text-3xl">
             {gameResult === "win" ? "Correct!" : "Try Again"}
           </DialogTitle>
-          <DialogClose className="absolute right-2.5 cursor-pointer border-none bg-transparent p-0">
-            <XCircle className="size-8 sm:size-11.25" />
-            <span className="sr-only">Close</span>
-          </DialogClose>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-2 px-4 text-base font-medium sm:flex-row sm:gap-8 sm:px-8 sm:text-2xl">
-          <p>Tries: {attempts}</p>
-          <p>Percent Correct: {percentCorrect}%</p>
-          <p>Streak: {streak}</p>
-        </div>
+        {gameResult === "win" && (
+          <div className="flex flex-col items-center justify-center gap-2 px-4 text-base font-medium sm:flex-row sm:gap-8 sm:px-8 sm:text-2xl">
+            <p>
+              You got it in {attempts} {`${attempts > 1 ? "tries!" : "try!"}`}
+            </p>
+            {/* <p>Tries: {attempts}</p> */}
+            {/* <p>Win Rate: {percentCorrect}%</p>
+          <p>Streak: {streak}</p> */}
+          </div>
+        )}
+
+        <p className="text-center text-xl font-medium sm:text-2xl">
+          Solved Word: {answer.charAt(0).toUpperCase() + answer.slice(1).toLowerCase()}
+        </p>
 
         <hr className="border-light border-2" />
 
-        <div className="flex flex-col items-center gap-1.25 px-2.5">
+        {/* <div className="flex flex-col items-center gap-1.25 px-2.5">
           <p className="text-xl font-medium sm:text-2xl">Guess Distribution</p>
           <div className="flex flex-col items-start">
             {guessDistribution.map((count, i) => (
@@ -68,20 +61,16 @@ export default function GameResultsModal({
               />
             ))}
           </div>
-        </div>
+        </div> */}
 
-        <hr className="border-light border-2" />
+        {/* <hr className="border-light border-2" /> */}
 
         <div className="flex flex-col items-center justify-center gap-2 px-4 text-center text-base font-medium sm:flex-row sm:gap-8 sm:px-8 sm:text-2xl">
-          <p>Attempts Remaining: {MAX_GUESSES - attempts}</p>
+          {/* <p>Attempts Remaining: {MAX_GUESSES - attempts}</p> */}
           <p>Return tomorrow for another attempt!</p>
         </div>
 
-        <p className="text-center text-xl font-medium sm:text-2xl">
-          Solved Word: {answer.charAt(0).toUpperCase() + answer.slice(1).toLowerCase()}
-        </p>
-
-        <div className="flex flex-col items-center justify-center gap-4 px-8 sm:flex-row sm:gap-6">
+        {/* <div className="flex flex-col items-center justify-center gap-4 px-8 sm:flex-row sm:gap-6">
           <Button
             onClick={onShare}
             className="h-16 w-full gap-1 rounded-[20px] border border-accent bg-accent-secondary text-lg text-light-primary hover:bg-accent-secondary/80 sm:h-20 sm:w-60 sm:text-xl"
@@ -95,7 +84,7 @@ export default function GameResultsModal({
           >
             Practice
           </Button>
-        </div>
+        </div> */}
       </DialogContent>
     </Dialog>
   );

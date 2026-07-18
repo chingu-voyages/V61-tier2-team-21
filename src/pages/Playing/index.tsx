@@ -7,14 +7,7 @@ export default function Playing() {
 
   return (
     <section className="flex flex-col items-center w-257.5">
-      {gameResult && (
-        <GameResultsModal
-          open
-          onPractice={() => {}}
-          onShare={() => {}}
-          guessDistribution={[0, 1, 1, 0, 2, 1]}
-        />
-      )}
+      <GameResultsModal open={!!gameResult} />
       <Game />
     </section>
   );

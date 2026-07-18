@@ -8,6 +8,8 @@ export const WORD_LENGTH = {
 
 export const MAX_GUESSES = 6;
 
+export const TOAST_DURATION_MS = 2500;
+
 export const DEFAULT_GAME_CONFIG: GameConfig = {
   wordLength: WORD_LENGTH.DEFAULT,
   maxGuesses: MAX_GUESSES,
