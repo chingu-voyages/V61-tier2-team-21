@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vite-plus/test";
-import { validateGuess, compareGuess } from "@/lib/gameLogic";
+import { validateGuess, compareGuess, updateGuessedLetters } from "@/lib/gameLogic";
 
 describe("validateGuess", () => {
   it("returns true for a valid 5-letter word", () => {
@@ -65,5 +65,76 @@ describe("compareGuess", () => {
       "correct",
       "correct",
     ]);
+  });
+});
+
+describe("updateGuessedLetters", () => {
+  it("upgrades a gray letter to yellow", () => {
+    const result = updateGuessedLetters({
+      oldGuesses: { A: "incorrect" },
+      newGuess: "APPLE",
+      newStates: ["present", "incorrect", "incorrect", "incorrect", "incorrect"],
+    });
+
+    expect(result.A).toBe("present");
+  });
+
+  it("upgrades a yellow letter to green", () => {
+    const result = updateGuessedLetters({
+      oldGuesses: { B: "present" },
+      newGuess: "BOARD",
+      newStates: ["correct", "incorrect", "incorrect", "incorrect", "incorrect"],
+    });
+
+    expect(result.B).toBe("correct");
+  });
+
+  it("never downgrades a green letter", () => {
+    const result = updateGuessedLetters({
+      oldGuesses: { C: "correct" },
+      newGuess: "CRIMP",
+      newStates: ["present", "incorrect", "incorrect", "incorrect", "incorrect"],
+    });
+
+    expect(result.C).toBe("correct");
+  });
+
+  it("adds a brand-new letter that wasn't guessed before", () => {
+    const result = updateGuessedLetters({
+      oldGuesses: {},
+      newGuess: "APPLE",
+      newStates: ["correct", "correct", "correct", "correct", "correct"],
+    });
+
+    expect(result).toEqual({
+      A: "correct",
+      P: "correct",
+      L: "correct",
+      E: "correct",
+    });
+  });
+
+  it("doesn't mutate the oldGuesses object it was given", () => {
+    const oldGuesses = { A: "incorrect" as const };
+
+    updateGuessedLetters({
+      oldGuesses,
+      newGuess: "APPLE",
+      newStates: ["present", "incorrect", "incorrect", "incorrect", "incorrect"],
+    });
+
+    expect(oldGuesses.A).toBe("incorrect");
+  });
+
+  it("keeps the best state per letter when the same letter repeats in one guess with different results", () => {
+    // "APPLE" has two Ps; guessing "PIZZA" style duplicates should still
+    // leave the best (correct) state for the letter, not the last-seen one.
+    const result = updateGuessedLetters({
+      oldGuesses: {},
+      newGuess: "PP",
+      newStates: ["incorrect", "correct"],
+    });
+
+    expect(result.P).toBe("correct");
   });
 });

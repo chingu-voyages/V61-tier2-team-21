@@ -7,6 +7,10 @@ export type GameConfig = {
   maxGuesses: number;
 };
 
+export type GuessLetterState = Exclude<TileState, "empty" | "filled">;
+
+export type GuessedLetters = Record<string, GuessLetterState>;
+
 // I'm not super happy with bunching so many items together
 // I'd like to break these out into focused groups
 // e.g. GameResults, GamePhases, etc.
@@ -14,7 +18,7 @@ export interface GameStore {
   config: GameConfig;
   phase: GamePhase;
   board: BoardTile[][];
-  guessedLetters: Record<string, TileState>;
+  guessedLetters: GuessedLetters;
   answer: string;
   currentRow: number;
   currentCol: number;
