@@ -204,7 +204,7 @@ The store currently only knows about the screen (landing/playing/finished). We n
   - **Do this first:** The basic `compareGuess` function must exist
   - **How long:** M (~45 min)
 
-- [ ] **Create a function that builds the keyboard colors**
+- [x] **Create a function that builds the keyboard colors**
   - **Assignee**: [Will](https://github.com/wjbetech), [Tina](https://github.com/danimkim)
   - **What to do:** Create `updateGuessedLetters(oldGuesses, newGuess, newStates)` in `src/lib/gameLogic.ts`. It updates the keyboard letter colors after each guess.
   - **Why we need it:** The keyboard shows which letters the player has used. A letter should keep its best color:

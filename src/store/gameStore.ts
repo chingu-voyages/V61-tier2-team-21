@@ -12,7 +12,7 @@ import validGuesses from "@/lib/validGuesses";
 // types
 import type { GameStore } from "../types/game/gameConfig";
 import { toast } from "sonner";
-import { compareGuess } from "@/lib/gameLogic";
+import { compareGuess, updateGuessedLetters } from "@/lib/gameLogic";
 
 export const useGameStore = create<GameStore>((set) => ({
   config: DEFAULT_GAME_CONFIG,
@@ -95,6 +95,12 @@ export const useGameStore = create<GameStore>((set) => ({
         board[state.currentRow][i].state = tileStates[i];
       }
 
+      const updatedGuessedLetters = updateGuessedLetters({
+        oldGuesses: state.guessedLetters,
+        newGuess: guess,
+        newStates: tileStates,
+      });
+
       if (guess === state.answer) {
         toast("You Won!");
         return { board, gameResult: "win" as const };
@@ -105,6 +111,11 @@ export const useGameStore = create<GameStore>((set) => ({
         return { board, gameResult: "lose" as const };
       }
 
-      return { board, currentRow: state.currentRow + 1, currentCol: 0 };
+      return {
+        board,
+        currentRow: state.currentRow + 1,
+        currentCol: 0,
+        guessedLetters: updatedGuessedLetters,
+      };
     }),
 }));

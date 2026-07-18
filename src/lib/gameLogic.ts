@@ -1,6 +1,7 @@
 // lib
-import { DEFAULT_GAME_CONFIG } from "@/data/constants";
+import { DEFAULT_GAME_CONFIG, PRIORITY } from "@/data/constants";
 import validGuesses from "@/lib/validGuesses";
+import type { GuessedLetters, GuessLetterState } from "@/types/game/gameConfig";
 
 // I thought I could pass WORD_LENGTH.DEFAULT in to args here
 // but it was throwing errors, leaving it as wordLength: number for now
@@ -12,7 +13,7 @@ export function validateGuess(guess: string, wordLength: number): boolean {
 export function compareGuess(guess: string, answer: string) {
   const wordLength = DEFAULT_GAME_CONFIG.wordLength;
   const remaining = answer.split("");
-  const states: ("correct" | "present" | "incorrect")[] = Array(wordLength).fill("incorrect");
+  const states: GuessLetterState[] = Array(wordLength).fill("incorrect");
 
   for (let i = 0; i < wordLength; i++) {
     if (guess[i] === answer[i]) {
@@ -35,4 +36,27 @@ export function compareGuess(guess: string, answer: string) {
   }
 
   return states;
+}
+
+export function updateGuessedLetters({
+  oldGuesses,
+  newGuess,
+  newStates,
+}: {
+  oldGuesses: GuessedLetters;
+  newGuess: string;
+  newStates: GuessLetterState[];
+}) {
+  const updated = new Map(Object.entries(oldGuesses));
+
+  Array.from(newGuess).forEach((letter, i) => {
+    const newState = newStates[i];
+    const oldState = updated.get(letter);
+
+    // update only when there is no old state or new state has higher priority than the previous state
+    if (!oldState || PRIORITY[newState] > PRIORITY[oldState]) {
+      updated.set(letter, newState);
+    }
+  });
+  return Object.fromEntries(updated);
 }
