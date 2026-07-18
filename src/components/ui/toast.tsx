@@ -1,4 +1,5 @@
 import { Toaster as Sonner, type ToasterProps } from "sonner";
+import { TOAST_DURATION_MS } from "@/data/constants";
 
 const Toaster = ({ ...props }: ToasterProps) => {
   return (
@@ -13,6 +14,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
         } as React.CSSProperties
       }
       toastOptions={{
+        duration: TOAST_DURATION_MS,
         classNames: {
           toast:
             "flex-col items-center justify-center rounded-[25px] border border-light-primary bg-accent-secondary px-10 py-[45px]",
