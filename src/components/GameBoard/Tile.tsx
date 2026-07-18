@@ -6,9 +6,9 @@ import type { TileProps, TileState } from "../../types/board/tile";
 const stateStyles: Record<TileState, string> = {
   empty: "bg-transparent text-black dark:text-white",
   filled: "bg-transparent text-black dark:text-white", // looks the same as empty, for now
-  correct: "text-white",
-  present: "text-white",
-  incorrect: "text-white",
+  correct: "text-light-primary",
+  present: "text-light-primary",
+  incorrect: "text-light-primary",
 };
 
 const flipColors: Record<string, string> = {
@@ -22,7 +22,7 @@ export default function Tile({ letter, state, index }: TileProps) {
 
   return (
     <div
-      className={`w-14 h-10 flex items-center rounded-md justify-center text-xl font-bold uppercase border border-gray-500 transition-colors duration-300 rotate ${stateStyles[state]} ${resultState ? "animate-flip" : ""}`}
+      className={`w-14 h-10 flex items-center rounded-md justify-center text-xl font-bold uppercase border border-light-disabled transition-colors duration-300 rotate ${stateStyles[state]} ${resultState ? "animate-flip" : ""}`}
       style={
         resultState
           ? ({
