@@ -174,7 +174,7 @@ The store currently only knows about the screen (landing/playing/finished). We n
   - **How long:** S (~30 min)
 
 - [x] **Create a function that compares the guess to the answer**
-  - **Assignee**: [Will](https://github.com/wjbetech)
+  - **Assignee**: [Will](https://github.com/wjbetech), [Tina](https://github.com/danimkim)
   - **What to do:** Create `compareGuess(guess, answer)` in `src/lib/gameLogic.ts`. It returns an array of 5 tile states:
     - `'correct'` — right letter, right position (green tile)
     - `'present'` — right letter, wrong position (yellow tile)
@@ -187,25 +187,25 @@ The store currently only knows about the screen (landing/playing/finished). We n
   - **Files to change:** `src/lib/gameLogic.ts`, `src/lib/gameLogic.test.ts`
   - **How long:** M (~1 hour)
 
-- [ ] **Make sure duplicate letters work correctly**
-  - **Assignee**: []
+- [x] **Make sure duplicate letters work correctly**
+  - **Assignee**: [Will](https://github.com/wjbetech)
   - **What to do:** Update `compareGuess` to handle words with repeated letters. The rule is: each letter in the answer can only be matched once.
   - **Why we need it:** Imagine the answer is "LEVEL" and the player guesses "ALLEY":
     - Position 0: "A" is not in "LEVEL" → gray
     - Position 1: "L" is in "LEVEL" but at position 0, not position 1 → yellow
-    - Position 2: "L" — there is only one "L" left in "LEVEL" (it was already used at position 1's match), so this "L" → gray
+    - Position 2: "L" — "LEVEL" has two "L"s, and only one has been used so far (by position 1's match), so there is still one "L" left to match → yellow
     - Position 3: "E" is in "LEVEL" but at positions 1 and 3, not position 3 → green (it IS at position 3)
     - Position 4: "Y" is not in "LEVEL" → gray
   - **How to know it works:** Write tests:
-    - "ALLEY" vs "LEVEL" → `[gray, yellow, gray, green, gray]`
+    - "ALLEY" vs "LEVEL" → `[gray, yellow, yellow, green, gray]`
     - "EERIE" vs "EERIE" → all green
     - "EERIE" vs "REPLY" → correct states
   - **Files to change:** `src/lib/gameLogic.ts`, `src/lib/gameLogic.test.ts`
   - **Do this first:** The basic `compareGuess` function must exist
   - **How long:** M (~45 min)
 
-- [] **Create a function that builds the keyboard colors**
-  - **Assignee**: []
+- [x] **Create a function that builds the keyboard colors**
+  - **Assignee**: [Will](https://github.com/wjbetech), [Tina](https://github.com/danimkim)
   - **What to do:** Create `updateGuessedLetters(oldGuesses, newGuess, newStates)` in `src/lib/gameLogic.ts`. It updates the keyboard letter colors after each guess.
   - **Why we need it:** The keyboard shows which letters the player has used. A letter should keep its best color:
     - If a letter was yellow, and becomes green in a later guess → it shows green
@@ -373,30 +373,30 @@ The store currently only knows about the screen (landing/playing/finished). We n
 
 ### User Story: The player sees the game result
 
-- [ ] **Show the result on the Finished screen**
+- [x] **Show the result on the Finished screen**
   - **Assignee**: [Tina](https://github.com/danimkim)
-  - **What to do:** Read `gameResult` from the store in `Finished/index.tsx`. Show:
+  - **What to do:** Read `gameResult` from the store in `src/components/GameResultsModal/index.tsx` and render in `Playing/index.tsx`. Show:
     - "You won!" if `gameResult === 'win'`
     - "You lost!" if `gameResult === 'lose'`
   - **Why we need it:** The player needs to know if they won or lost.
   - **How to know it works:** Win the game → "You won!" appears. Lose the game → "You lost!" appears.
-  - **Files to change:** `src/pages/Finished/index.tsx`
+  - **Files to change:** `src/components/GameResultsModal/index.tsx`, `src/pages/Playing/index.tsx`
   - **How long:** S (~15 min)
 
-- [ ] **Show the answer on the Finished screen**
-  - **Assignee**: []
+- [x] **Show the answer on the Finished screen**
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** Read `answer` from the store. Show it on the Finished screen (for both win and lose).
   - **Why we need it:** If the player loses, they want to know what the word was. If they win, it is nice to see the word again.
   - **How to know it works:** Finish a game → the word is shown on the screen.
-  - **Files to change:** `src/pages/Finished/index.tsx`
+  - **Files to change:** `src/components/ui/toast.tsx`, `src/store/gameStore.ts`
   - **How long:** S (~5 min)
 
-- [ ] **Show how many guesses it took on win**
-  - **Assignee**: []
+- [x] **Show how many guesses it took on win**
+  - **Assignee**: [Tina](https://github.com/danimkim)
   - **What to do:** Read `currentRow` from the store. On win, show "You guessed it in X tries" where X is `currentRow + 1` (because currentRow starts at 0).
   - **Why we need it:** Players want to know how good they were.
   - **How to know it works:** Win in 3 guesses → "You guessed it in 3 tries" appears.
-  - **Files to change:** `src/pages/Finished/index.tsx`
+  - **Files to change:** `src/components/ui/toast.tsx`, `src/store/gameStore.ts`
   - **How long:** S (~10 min)
 
 ### Epic: Make sure input is clean
